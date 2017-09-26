@@ -1,0 +1,821 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/xin_ai/!svn/ver/2931/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders
+END
+sundongliang_article_pcauto_3.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/sundongliang_article_pcauto_3.py
+END
+wudanyang_article_nanfangwang_qiche_49.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/wudanyang_article_nanfangwang_qiche_49.py
+END
+article_pcauto.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/article_pcauto.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/__init__.py
+END
+gaodong_video_sinaqiche_81.py
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_video_sinaqiche_81.py
+END
+gaodong_article_haochezhijia_19.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_haochezhijia_19.py
+END
+hanwanhe_article_gaishiqichezixun_64.py
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/hanwanhe_article_gaishiqichezixun_64.py
+END
+qcask.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/qcask.py
+END
+cheshi.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/cheshi.py
+END
+zhengda_article_tenxunqiche_66.py
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_article_tenxunqiche_66.py
+END
+womai.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/womai.py
+END
+test_pic_article.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/xin_ai/!svn/ver/2901/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/test_pic_article.py
+END
+article_pic.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/xin_ai/!svn/ver/2894/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/article_pic.py
+END
+huliren_article_fenghuangwang_57.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/huliren_article_fenghuangwang_57.py
+END
+liziqiang_k_article_315che_18.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_k_article_315che_18.py
+END
+zhengda_video_yueyeyizu_86.py
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_video_yueyeyizu_86.py
+END
+pricesuning.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/pricesuning.py
+END
+weishiwei_article_yangshiwangqiche_dg_60.py
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_yangshiwangqiche_dg_60.py
+END
+ask39.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/ask39.py
+END
+liziqiang_article_sohu_13.py
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_article_sohu_13.py
+END
+linyashan_aticle_wangshangcheshi_42.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_wangshangcheshi_42.py
+END
+vip.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/vip.py
+END
+koubei_yiche.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/koubei_yiche.py
+END
+zhengda_article_yueyeyizu_59.py
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_article_yueyeyizu_59.py
+END
+weishiwei_video_yangshiwangqiche_82.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_video_yangshiwangqiche_82.py
+END
+jumei.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/jumei.py
+END
+huliren_article_chexunwang_38.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/huliren_article_chexunwang_38.py
+END
+sundongliang_汽车之家抓取88888888_9.py
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/sundongliang_%E6%B1%BD%E8%BD%A6%E4%B9%8B%E5%AE%B6%E6%8A%93%E5%8F%9688888888_9.py
+END
+wudanyang_article_jinkouqichewang_35.py
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/wudanyang_article_jinkouqichewang_35.py
+END
+pricejd.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/pricejd.py
+END
+article_autohome.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/article_autohome.py
+END
+weishiwei_article_xinnengyuanqichewang_39.py
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_xinnengyuanqichewang_39.py
+END
+laidehe_article_dushiqichewang_26.py
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/laidehe_article_dushiqichewang_26.py
+END
+weishiwei_article_xinhuaqiche_50.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_xinhuaqiche_50.py
+END
+wudanyang_article_zhongguoershouchecheng_21.py
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/wudanyang_article_zhongguoershouchecheng_21.py
+END
+linyashan_aticle_wangshangcheshi_51.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_wangshangcheshi_51.py
+END
+luntan.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/luntan.py
+END
+weishiwei_article_yangshiwangqiche_xw_58.py
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_yangshiwangqiche_xw_58.py
+END
+suning.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/suning.py
+END
+dangdang.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/dangdang.py
+END
+zhengda_article_chezhidao_32.py
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_article_chezhidao_32.py
+END
+gaodong_article_qichetoutiao_34.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_qichetoutiao_34.py
+END
+video_autohome.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/video_autohome.py
+END
+liziqiang_315che_18.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_315che_18.py
+END
+linyashan_article_yangshiwangqiche_60.py
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_article_yangshiwangqiche_60.py
+END
+liziqiang_k_article_autohome_15.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_k_article_autohome_15.py
+END
+gaodong_video_haochezhijia_80.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_video_haochezhijia_80.py
+END
+hanwanhe_article_weixin_70.py
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/hanwanhe_article_weixin_70.py
+END
+liziqiang_k_article_pcauto_17.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_k_article_pcauto_17.py
+END
+requestscheduler.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/xin_ai/!svn/ver/2795/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/requestscheduler.py
+END
+article_pic_new.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/xin_ai/!svn/ver/2358/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/article_pic_new.py
+END
+wudanyang_video_wangyiqiche_78.py
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/wudanyang_video_wangyiqiche_78.py
+END
+weishiwei_article_dushiqichewang_26.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_dushiqichewang_26.py
+END
+weishiwei_article_xinhuaqiche_53.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_xinhuaqiche_53.py
+END
+decode_baidu_iask.py
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/xin_ai/!svn/ver/2931/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/decode_baidu_iask.py
+END
+wudanyang_article_aika_65.py
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/wudanyang_article_aika_65.py
+END
+starturls.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/starturls.py
+END
+article_yiche.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/article_yiche.py
+END
+ask120hospital.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/ask120hospital.py
+END
+linyashan_aticle_yangguangwangqiche_72.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_yangguangwangqiche_72.py
+END
+laidehe_article_qichechangjiwang_30.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/laidehe_article_qichechangjiwang_30.py
+END
+niuche.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/niuche.py
+END
+weishiwei_article_yangshiwangqiche_60.py
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_yangshiwangqiche_60.py
+END
+liziqiang_video_autohome_10.py
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_video_autohome_10.py
+END
+liangdi_k_aiticle_gundongxinwen_hexunqiche_54.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liangdi_k_aiticle_gundongxinwen_hexunqiche_54.py
+END
+decode_baiduse.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/xin_ai/!svn/ver/2931/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/decode_baiduse.py
+END
+liziqiang_dealer_yiche_11.py
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_dealer_yiche_11.py
+END
+generatelist.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/generatelist.py
+END
+weishiwei_article_xinhuaqiche_xc_53.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/weishiwei_article_xinhuaqiche_xc_53.py
+END
+sina.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/sina.py
+END
+ribao.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/ribao.py
+END
+laidehe_article_chinacar_71.py
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/laidehe_article_chinacar_71.py
+END
+che.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/che.py
+END
+liangdi_k_aiticle_qicheyaowen_hexunqiche_46.py
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liangdi_k_aiticle_qicheyaowen_hexunqiche_46.py
+END
+linyashan_aticle_yangguangwangqiche_61.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_yangguangwangqiche_61.py
+END
+priceguomei.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/priceguomei.py
+END
+linyashan_aticle_yangguangwangqiche_75.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_yangguangwangqiche_75.py
+END
+hanwanhe_article_xincheping_36.py
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/hanwanhe_article_xincheping_36.py
+END
+laidehe_article_diandongqicheshidaiwang_44.py
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/laidehe_article_diandongqicheshidaiwang_44.py
+END
+yamaxun.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/yamaxun.py
+END
+luntan_yiche.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/luntan_yiche.py
+END
+gaodong_article_qichezhongguo_63.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_qichezhongguo_63.py
+END
+liziqiang_article_pcauto_3.py
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_article_pcauto_3.py
+END
+decode_toutiao.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/xin_ai/!svn/ver/2635/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/decode_toutiao.py
+END
+tianmao.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/tianmao.py
+END
+gaodong_article_58che_48.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_58che_48.py
+END
+pricejumei.py
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/pricejumei.py
+END
+basesite.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xin_ai/!svn/ver/3445/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/basesite.py
+END
+liangdi_k_article_qichexinwen_37.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liangdi_k_article_qichexinwen_37.py
+END
+linyashan_aticle_qicheshenghuo_87.py
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_qicheshenghuo_87.py
+END
+luntan_autohome.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/luntan_autohome.py
+END
+basepic.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/xin_ai/!svn/ver/2901/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/basepic.py
+END
+zhengda_article_chezhidao_33.py
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_article_chezhidao_33.py
+END
+priceyhd.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/priceyhd.py
+END
+zhengda_article_chezhidao_27.py
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_article_chezhidao_27.py
+END
+gaodong_article_qichezhongguo_yejie_67.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_qichezhongguo_yejie_67.py
+END
+gaodong_article_haochezhijia2_31.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_haochezhijia2_31.py
+END
+linyashan_aticle_zhonghuawangqiche_85.py
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_zhonghuawangqiche_85.py
+END
+wudanyang_article_wangyiqiche_chuangxingongchang_62.py
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/wudanyang_article_wangyiqiche_chuangxingongchang_62.py
+END
+guomei.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/guomei.py
+END
+huliren_article_renmingwangqiche_52.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/huliren_article_renmingwangqiche_52.py
+END
+sundongliang_dealer_yiche_11.py
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/sundongliang_dealer_yiche_11.py
+END
+douban_allvideo.py
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/xin_ai/!svn/ver/3436/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/douban_allvideo.py
+END
+gaodong_article_qichezhongguo_youhui_69.py
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_qichezhongguo_youhui_69.py
+END
+che168.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/che168.py
+END
+all_car_type_from_autohome.py_bak
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/all_car_type_from_autohome.py_bak
+END
+hanwanhe_article_dagongqiche_47.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/hanwanhe_article_dagongqiche_47.py
+END
+laidehe_21_cn_qiche_55.py
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/laidehe_21_cn_qiche_55.py
+END
+linyashan_aticle_wangshangcheshi_29.py
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_wangshangcheshi_29.py
+END
+decode_baidu_articledup.py
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/xin_ai/!svn/ver/2856/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/decode_baidu_articledup.py
+END
+priceyamaxun.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/priceyamaxun.py
+END
+luntan_xincheping.py
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/luntan_xincheping.py
+END
+liangdi_k_aiticle_chanpinceping_wanchewang_56.py
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liangdi_k_aiticle_chanpinceping_wanchewang_56.py
+END
+gaodong_article_xinlangqiche_41.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/gaodong_article_xinlangqiche_41.py
+END
+pricedangdang.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/pricedangdang.py
+END
+luntan_aika.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/luntan_aika.py
+END
+zhengda_article_wanchewang_40.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_article_wanchewang_40.py
+END
+liangdi_k_aiticle_hangyezixun_chejianding_24.py
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liangdi_k_aiticle_hangyezixun_chejianding_24.py
+END
+jd.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/jd.py
+END
+wudanyang_article_wangyiqiche_43.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/wudanyang_article_wangyiqiche_43.py
+END
+zhengda_article_jinritoutiao_79.py
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_article_jinritoutiao_79.py
+END
+zhengda_video_tengxunqiche_84.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/zhengda_video_tengxunqiche_84.py
+END
+basesiteonline.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/basesiteonline.py
+END
+huliren_article_maichewang_28.py
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/huliren_article_maichewang_28.py
+END
+liziqiang_article_sina_12.py
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_article_sina_12.py
+END
+hanwanhe_article_shangyongqichewang_25.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/hanwanhe_article_shangyongqichewang_25.py
+END
+douban.py
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/douban.py
+END
+decode_baidu_xywy120ask.py
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/xin_ai/!svn/ver/2881/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/decode_baidu_xywy120ask.py
+END
+linyashan_aticle_yangguangwangqiche_76.py
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_yangguangwangqiche_76.py
+END
+linyashan_aticle_zhonghuawangqiche_83.py
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_zhonghuawangqiche_83.py
+END
+luntan_pcauto.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/luntan_pcauto.py
+END
+liziqiang_article_wangyi_14.py
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/liziqiang_article_wangyi_14.py
+END
+linyashan_aticle_zhonghuawangqiche_77.py
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_aticle_zhonghuawangqiche_77.py
+END
+xywy.py
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/xywy.py
+END
+linyashan_article_haochezhijia2_31.py
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/linyashan_article_haochezhijia2_31.py
+END
+hanwanhe_article_guojizaixian_45.py
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/xin_ai/!svn/ver/2175/crawler/branches/spider_cluster_auto_test/oreo/oreo/spiders/hanwanhe_article_guojizaixian_45.py
+END

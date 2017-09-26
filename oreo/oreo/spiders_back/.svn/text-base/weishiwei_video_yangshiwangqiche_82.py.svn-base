@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.weishiwei_video_yangshiwangqiche_82 import Parservideo_yangshiwangqiche_list
+from oreo.parser.weishiwei_video_yangshiwangqiche_82 import Parservideo_yangshiwangqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'weishiwei_video_yangshiwangqiche_82'
+	start_urls = ['http://auto.cntv.cn/2015/04/16/ARTI1429164484070289.shtml']
+	parsers = [Parservideo_yangshiwangqiche_list(),Parservideo_yangshiwangqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='text']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

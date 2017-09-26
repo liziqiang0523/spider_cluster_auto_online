@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_article_qichezhongguo_yejie_67 import Parserarticle_qichezhongguo_list
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_qichezhongguo_yejie_67'
+	start_urls = ['http://new.qi-che.com/']
+	parsers = [Parserarticle_qichezhongguo_list(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='mid_m']/ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

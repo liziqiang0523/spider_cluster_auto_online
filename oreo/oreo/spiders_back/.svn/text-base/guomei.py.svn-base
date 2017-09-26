@@ -1,0 +1,30 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+国美爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.guomei import ParserGuomeiList
+from oreo.parser.guomei import ParserGuomeiCommodity
+from starturls import jd_list
+
+class Suning(BasesiteSpider):
+#class Guomei(OnlineSpider):
+  #在线爬虫配置
+  parsers = [ParserGuomeiList(), ParserGuomeiCommodity()]
+
+  name = 'guomei'
+  topic = 'guomei'
+  allowed_domain = ['gome.com.cn']
+  start_urls = ['http://item.gome.com.cn/9134047593-1123040424.html']
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'jd_commodity_list'},
+    #商品页面
+    {'xpath':"//a[contains(@class,'emcodeItem')]/@href",'allow':(r''),'deny':(r''),'itemtype':'commodity'},
+  ]
+

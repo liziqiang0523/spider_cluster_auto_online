@@ -1,0 +1,20 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.wudanyang_article_aika_65 import Parserarticle_aika_list
+from oreo.parser.wudanyang_article_aika_65 import Parserarticle_aika_item
+from oreo.parser.wudanyang_article_aika_65 import Parserarticle_aika_travel_list
+from oreo.parser.wudanyang_article_aika_65 import Parserarticle_aika_tag_list
+
+class Luntan(BasesiteSpider):
+	name = 'wudanyang_article_aika_65'
+	start_urls = ['http://info.xcar.com.cn/201610/news_1957150_1.html']
+	parsers = [Parserarticle_aika_list(),Parserarticle_aika_item(),Parserarticle_aika_travel_list(),Parserarticle_aika_tag_list(),]
+	xTargets = [ 
+		{"xpath":"//dl[@class='listCon ' or @class='listCon']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='article_page_bottom']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//ul/li/dl/dd/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pag_list']//ul//li//div[@class='pag_list_tit']//p/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

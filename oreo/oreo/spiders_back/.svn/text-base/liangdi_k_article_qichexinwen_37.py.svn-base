@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liangdi_k_article_qichexinwen_37 import Parserarticle_qichexinwen_list
+from oreo.parser.liangdi_k_article_qichexinwen_37 import Parserarticle_qichexinwen_item
+
+class Luntan(BasesiteSpider):
+	name = 'liangdi_k_article_qichexinwen_37'
+	start_urls = ['http://www.im4s.cn/zixun/']
+	parsers = [Parserarticle_qichexinwen_list(),Parserarticle_qichexinwen_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='article']//h2/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pagination']/ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

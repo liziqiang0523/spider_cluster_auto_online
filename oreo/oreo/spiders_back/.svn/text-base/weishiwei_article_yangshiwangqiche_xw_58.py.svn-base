@@ -1,0 +1,18 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.weishiwei_article_yangshiwangqiche_xw_58 import Parserarticle_yangshiwangqiche_xw_list98
+from oreo.parser.weishiwei_article_yangshiwangqiche_xw_58 import Parserarticle_yangshiwangqiche_xw_list101
+from oreo.parser.weishiwei_article_yangshiwangqiche_xw_58 import Parserarticle_yueyeyizu_item102
+
+class Luntan(BasesiteSpider):
+	name = 'weishiwei_article_yangshiwangqiche_xw_58'
+	start_urls = ['http://auto.cntv.cn/2015/07/02/ARTI1435798277384815.shtml']
+	parsers = [Parserarticle_yangshiwangqiche_xw_list98(),Parserarticle_yangshiwangqiche_xw_list101(),Parserarticle_yueyeyizu_item102(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='qicheZ11243_ind02']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='qicheZ11243_ind05']//ul//li","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='qicheZ11243_ind06']//ul//li","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

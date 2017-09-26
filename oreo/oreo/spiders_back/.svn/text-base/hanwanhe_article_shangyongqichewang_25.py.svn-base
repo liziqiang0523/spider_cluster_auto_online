@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.hanwanhe_article_shangyongqichewang_25 import Parserarticle_shangyongqichewang_list
+from oreo.parser.hanwanhe_article_shangyongqichewang_25 import Parserarticle_shangyongqichewang_item
+
+class Luntan(BasesiteSpider):
+	name = 'hanwanhe_article_shangyongqichewang_25'
+	start_urls = ['http://cv.ce.cn/zxz/zxzzcfg/201609/22/t20160922_16167642.shtml']
+	parsers = [Parserarticle_shangyongqichewang_list(),Parserarticle_shangyongqichewang_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='content']/div[@class='left']/ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='content']/div[@class='left']/p/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

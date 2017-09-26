@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.wudanyang_article_nanfangwang_qiche_49 import Parserarticle_nanfangwang_qiche_list
+from oreo.parser.wudanyang_article_nanfangwang_qiche_49 import Parserarticle_nanfangwang_qiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'wudanyang_article_nanfangwang_qiche_49'
+	start_urls = ['http://car.southcn.com/7/2016-11/02/content_158907931.htm']
+	parsers = [Parserarticle_nanfangwang_qiche_list(),Parserarticle_nanfangwang_qiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='m-lists']//div[@class='pw']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='displaypagenum']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

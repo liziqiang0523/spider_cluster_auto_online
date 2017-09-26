@@ -1,0 +1,35 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+  xywy科室爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.xywy import ParserKeshi
+
+#class Xywy(BasesiteSpider):
+class Xywy(OnlineSpider):
+  
+  name = "xywy"
+  topic = "xywy"
+  #allowed_domain = ["120ask.com",]
+  parsers = [ParserKeshi()]
+
+  start_urls = [
+  'http://zzk.xywy.com/'
+  #'http://www.120ask.com/question/5170725.htm',
+  #'http://www.120ask.com/question/9999534.htm',
+    ]
+  
+  xListLink = [
+    #{'xpath':'id("list")//div[contains(@class, "page")]', 'allow':(), 'deny':(), 'itemtype':'list_question_all'}, 
+    ]
+
+  xTargets =  [
+    #{'xpath':'', 'allow':(), 'deny':(), 'itemtype':''}, 
+    #{'xpath':'id("list")//div[contains(@class, "main")]/ul/li//a[contains(@href, "/question/")]', 'allow':(), 'deny':(), 'itemtype':'item_question'}, 
+    #全页的问答页都要
+    #{'xpath':'/html//a', 'allow':(r'http://www.120ask.com/question/\d+.htm'), 'deny':(), 'itemtype':'item_question'}, 
+    ]

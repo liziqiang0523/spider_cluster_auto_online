@@ -1,0 +1,195 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming
+'''
+  破解头条的抓取
+  第一步：
+    发任务。任务来自task，但更新as，cp. max_behot_time初始是0 之后是上一步json中指定的
+  第二步：
+    得到的json，把data中的item入库。如果当前json是空了，或达到了最大的页数限制（task中限制，保存在meta中），否则更新max_behot_time，任务回发给task
+    这一步的json中，都是列表信息，对列表信息的source_url（item页面）新建task回发给task，在第三步进行下载结果的解析
+  第三步：
+    对下载item页执行解析，保存结果，这和其他爬虫都相同的逻辑了
+  通过req种的q_flag来判断是处在第几步，自己这步处理完成后对q_flag+1操作，指明下一步做啥
+'''
+
+import sys, re,traceback, logging, math, time, datetime, urllib, json, hashlib
+from scrapy.spiders import Spider
+from scrapy.http import Request
+#from scrapy.baseparser import BaseParser
+from oreo.facade import facade
+from scrapy.linkextractors import LinkExtractor
+from oreo import settings
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+class BasesiteSpider(Spider):
+  
+  #爬虫的唯一id号，格式：20151109_16_01_59 有这个id，当爬虫的name相同时，能区别出实例
+  mid = "mid"
+  #以dianping网为例
+  name = "toutiao_test"
+  task_query = "toutiao_test"
+  allowed_domain = []
+  #其实抓取url 通常是列表页第一页 eg:http://www.dianping.com/search/category/2/0/p1
+  start_urls = []
+  #是否需要代理 1-no 0-yes
+  no_proxy = 0
+  #最大调度数量 用于避免一个爬虫持续工作太久而导致内存占用量过大
+  max_request_num = settings.MAX_REQ_NUM
+  #是否执行跳转抓取。通常是允许的（False）
+  dont_redirect = False
+  #实际爬虫相应的解析器
+  parsers = []
+  #是否保存网f页
+  drop_page = settings.DROP_PAGE
+  #item结果保存表
+  table_name = 'toutiao_listjson'
+
+  #初始进行调度
+  def start_requests(self):
+    self.porg_as = re.compile(r'&as=\w{4,}')
+    self.porg_cp = re.compile(r'&cp=\w{4,}')
+    self.porg_time = re.compile(r'&max_behot_time=\d+')
+    #第一步 发任务。任务来自task，但更新as，cp. max_behot_time初始是0 之后是上一步json中指定的
+    #task需要:url page_cur page_max q_flag  
+    for task in facade.get_task(self.name, self.max_request_num):
+      url = task['url']
+      #更新as，cp. max_behot_time初始是0
+      if 'max_behot_time' not in url:
+        url = url + '&max_behot_time=0'
+      ascp = self.get_ascp()
+      url = self.porg_as.sub('', url)
+      url = self.porg_cp.sub('', url)
+      url = url + '&as=' + ascp['as'] + '&cp=' + ascp['cp']
+      logging.debug('初始调度 更新as和cp后的url:%s' % url)
+      req = Request(url, dont_filter=True)
+      req.meta['no_proxy'] = self.no_proxy
+      for k,v in task.items():
+        req.meta[k] = v
+      yield req
+
+  #计算as cp两个加密串 以后可能会经常改
+  def get_ascp(self):
+    t = int(time.time()) - 5
+    e = str(hex(t))[2:].upper()
+    m = hashlib.md5()
+    m.update(str(t))
+    n = str(m.hexdigest()).upper()
+    o, i ,a, l = n[:5], n[-5:], '', ''
+    if(8 != len(e)):
+      return {'as':"479BB4B7254C150",'cp':"7E0AC8874BB0985"}
+    for idx in range(5):
+      a += o[idx] + e[idx]
+    for idx in range(5):
+      l += e[idx+3] + i[idx]
+    return {'as': 'A1'+a+e[-3:], 'cp':e[:3]+l+'E1' }
+
+  def parse(self, response):
+    if response.status >= 400 or response.status < 200:
+      logging.debug('下载失败. status:%s url-req:%s url-res:%s' % (response.status, response.request.url, response.url))
+      return []
+    logging.debug("下载网页成功 status:%s url:%s" % (response.status, response.url))
+    #保存网页
+    page_item = self.save_page(response)
+    #通过req种的q_flag来判断上一步是第几步，决定下一步该怎么走
+    q_flag = int(response.request.meta.get('q_flag', 1))
+    logging.debug('q_flag:%d' % q_flag)
+    #第一步：得到的json，把data中的item入库。如果当前json是空了，或达到了最大的页数限制（task中限制，保存在meta中），否则更新max_behot_time，任务回发给task   这一步的json中，都是列表信息，对列表信息的source_url（item页面）新建task回发给task，在第三步进行下载结果的解析
+    if q_flag == 1:
+      print 'process_step1'
+      return self.process_step1(response)
+    #第三步：使用特定的header下载首页，得到rsv_pq。在启动函数start_requests里发第一步请求。
+    elif q_flag == 2:
+      print 'process_step2'
+      return self.process_step2(response)
+    else:
+      print 'process_stepNULL'
+      logging.warning("q_flag不合法:%s" % q_flag)
+
+
+  #第一步：得到的json，把data中的item入库。如果当前json是空了，或达到了最大的页数限制（task中限制，保存在meta中），否则更新max_behot_time，任务回发给task   这一步的json中，都是列表信息，对列表信息的source_url（item页面）新建task回发给task，在第三步进行下载结果的解析
+  def process_step1(self, response):
+    #保存下载的列表页结果
+    reqs = []
+    body = response.body_as_unicode().encode('utf-8')
+    try:
+      items = json.loads(body)
+    except Exception,e:
+      logging.warning("process_step1 json-loads failed! body:%s" % body[:200])
+      print("process_step1 json-loads failed! url:%s body:%s" % (response.url, body[:200]))
+      return []
+    len_items = len(items.get('data', []))
+    print 'items-data-len:', len_items
+    for item in items.get('data', []):
+      where = {'source_url': item.get('source_url', '')}
+      #print 'update_item:%s' % where
+      facade.update_item(self.table_name, where, item)
+      #对列表中的item进行下载
+      url = item.get('source_url', '')
+      ref_url = response.url.split('&as')[0]
+      if len(url) > 7:
+        linkinfo = {'url':url, 'q_flag':2, 'from_url':ref_url, 'ref_url':ref_url, 'spider_name':self.name, 'status':0, 'failed_cnt':0, 'in_time':math.floor(time.time()), 'update_time':math.floor(time.time()), 'dont_redirect':self.dont_redirect }
+        #facade.save_links(linkinfos = [linkinfo] , from_url = ref_url, topic = self.name)
+    #是否继续
+    page_cur = response.request.meta.get('page_cur', 0)
+    page_max = response.request.meta.get('page_max', 100)
+    if page_cur < page_max and len_items >= 9:
+      page_cur += 1
+      max_behot_time = int(time.time())
+      url = self.porg_time.sub('', response.url)
+      df_max_behot_time = int(time.time())
+      url = url + '&max_behot_time=' + str(items.get('next', {}).get('max_behot_time', df_max_behot_time))
+      linkinfo = response.request.meta.copy()
+      linkinfo['q_flag'] = 1
+      linkinfo['failed_cnt'] = 0
+      linkinfo['in_time'] = math.floor(time.time())
+      linkinfo['page_cur'] = page_cur
+      linkinfo['url'] = url
+      logging.debug("继续抓取下一页:%s" % url)
+      facade.save_links(linkinfos = [linkinfo] , from_url = linkinfo.get('ref_url', ''), topic = self.name)
+      req = Request(url, dont_filter=True)
+      req.meta['no_proxy'] = self.no_proxy
+      for k,v in linkinfo.items():
+        req.meta[k] = v
+      #reqs.append(req)
+    else:
+      logging.debug("页数达到最大或item数量少 page_cur:%s page_max:%s item-len:%s url:%s" % (page_cur, page_max, len_items, response.url))
+      print("页数达到最大或item数量少 page_cur:%s page_max:%s item-len:%s url:%s" % (page_cur, page_max, len_items, response.url))
+    print 'reqs:%d' % len(reqs)
+    return reqs
+
+  #第二步：对下载item页执行解析，保存结果，这和其他爬虫都相同的逻辑了
+  def process_step2(self, response):
+    for parser in self.parsers:
+      items = parser.process_page(page_item, html_body = page_item['html_body'] if 'html_body' in page_item else None, p_facade = facade)
+      for item in items:
+        parser.save_item(item)
+        logging.debug('解析出的完整item:\n  %s' % '  \n '.join(['%s:%s' % (k,v) for k,v in item.items()]))
+      logging.info('spider-%s-mid[%s]: crawl url:%s  suc. get item num:%d ----------' % (self.name, self.mid, response.url, len(items)))
+    return []
+    
+  #保存网页 -- page-body保存在FS中，结构化信息保存入mongo
+  def save_page(self, response):
+    logging.debug('get response of [%s] req-url:%s' % (response.url, response.request.url))
+    body = ""
+    encoding = ''
+    try:
+      body = response.body_as_unicode().encode('utf-8')
+      logging.debug("get body from response . " )
+    except Exception,e:
+      logging.warning('warning: get body from response failed! ')
+      return  None
+    #meta中的信息是创建Request的时设置的
+    page_item = response.meta
+    page_item['url'] = response.request.url
+    page_item['encoding_ori'] = encoding
+    page_item['status'] = response.status
+    page_item['spider_name'] = self.name
+    page_item['ref_url'] = response.request.meta.get('from_url', '')
+    facade.save_page(page_item, body, drop_page = self.drop_page)
+    #避免将page本身保存到了数据库
+    page_item['html_body'] = body
+    return page_item
+

@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.laidehe_article_qichechangjiwang_30 import Parserarticle_chajingqichewang
+from oreo.parser.laidehe_article_qichechangjiwang_30 import Parserarticle_chajingqichewang_item
+
+class Luntan(BasesiteSpider):
+	name = 'laidehe_article_qichechangjiwang_30'
+	start_urls = ['http://www.autoreport.cn/rules/20161101/1006644999.html']
+	parsers = [Parserarticle_chajingqichewang(),Parserarticle_chajingqichewang_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='the_pages']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='line-box ar-sub-page']//ul//li//h5/a/@href","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

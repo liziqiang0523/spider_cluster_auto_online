@@ -1,0 +1,13 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+
+class Luntan(BasesiteSpider):
+	name = 'hanwanhe_article_weixin_70'
+	start_urls = ['http://weixin.sogou.com/weixin?type=1&query=haoche6&ie=utf8&_sug_=n&_sug_type_=']
+	parsers = []
+	xTargets = [ 
+		{"xpath":"//div[@id='sogou_vr_11002301_box_0']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+#author:shiyuming
+'''
+图片现在基类
+'''
+import scrapy
+from oreo.spiders.basepic import BasePicSpider
+
+class ArticlePic(BasePicSpider):
+  name = "article_pic_new"
+  max_request_num = 2
+

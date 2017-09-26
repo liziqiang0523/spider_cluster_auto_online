@@ -1,0 +1,37 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+易车口碑爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.koubei_yiche import ParserKoubei_yicheItem
+from oreo.parser.koubei_yiche import ParserKoubei_yicheList
+
+#class Luntan(OnlineSpider):
+class Luntan(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserKoubei_yicheItem(),ParserKoubei_yicheList()]
+  name = 'koubei_yiche'
+  topic = 'koubei_yiche'
+  #allowed_domain = ['bitauto.com']
+  #start_urls = guazi_item_url
+  start_urls = [ 
+    'http://car.bitauto.com/baoma3xi/koubei/778449/'
+  ]
+  #fin = open('/data/spider_cluster_test/data_process/data/guazi_series_url','r')
+  #for url in fin:
+   # start_urls.append(url.strip())
+
+  xTargets = [
+    {'xpath':"//dl[@class='list-dl']//a",'allow':(),'deny':(),'itemtype':'koubei_yiche_item'},
+    #汽车item
+    #感兴趣的车
+    #{'xpath':"//div[@class='piclist interest-piclist']//a",'allow':(),'deny':(),'itemtype':'guazi_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+    {'xpath':"//div[@class='page-warp']//a",'allow':(),'deny':(),'itemtype':'koubei_yiche_item'},
+  ]

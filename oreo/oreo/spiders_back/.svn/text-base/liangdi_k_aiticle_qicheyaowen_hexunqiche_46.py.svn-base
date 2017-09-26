@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liangdi_k_aiticle_qicheyaowen_hexunqiche_46 import Parserarticle_hexunqiche_list
+from oreo.parser.liangdi_k_aiticle_qicheyaowen_hexunqiche_46 import Parserarticle_hexunqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'liangdi_k_aiticle_qicheyaowen_hexunqiche_46'
+	start_urls = ['http://auto.hexun.com/2016-08-23/185651958.html']
+	parsers = [Parserarticle_hexunqiche_list(),Parserarticle_hexunqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@id ='page2011nav']/table//li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='temp01']/ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

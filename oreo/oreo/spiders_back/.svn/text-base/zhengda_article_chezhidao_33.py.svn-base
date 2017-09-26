@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.zhengda_article_chezhidao_33 import Parserarticle_chezhidao_list43
+from oreo.parser.zhengda_article_chezhidao_33 import Parserarticle_chezhidao_item45
+
+class Luntan(BasesiteSpider):
+	name = 'zhengda_article_chezhidao_33'
+	start_urls = ['http://www.zdcar.com.cn/sankei/20161103/10802.html']
+	parsers = [Parserarticle_chezhidao_list43(),Parserarticle_chezhidao_item45(),]
+	xTargets = [ 
+		{"xpath":"//dl[@class='content right']//span[@class='title']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

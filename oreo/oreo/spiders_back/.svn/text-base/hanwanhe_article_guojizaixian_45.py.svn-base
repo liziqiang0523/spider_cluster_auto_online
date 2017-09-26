@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.hanwanhe_article_guojizaixian_45 import Parserarticle_guojizaixian_list
+from oreo.parser.hanwanhe_article_guojizaixian_45 import Parserarticle_guojizaixian_item
+
+class Luntan(BasesiteSpider):
+	name = 'hanwanhe_article_guojizaixian_45'
+	start_urls = ['http://auto.cri.cn/261/more/294/more294_9.htm']
+	parsers = [Parserarticle_guojizaixian_list(),Parserarticle_guojizaixian_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@id='more']/table//td/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='morepage']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

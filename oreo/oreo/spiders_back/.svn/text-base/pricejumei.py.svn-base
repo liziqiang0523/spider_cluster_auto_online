@@ -1,0 +1,43 @@
+# coding=utf-8
+#author:shiyuming
+'''
+  suning价格抓取
+'''
+
+import sys, traceback, logging,re, json, datetime
+from oreo.spiders.basesite import BasesiteSpider
+from basesiteonline import OnlineSpider
+from oreo.facade import facade
+from scrapy.selector import Selector
+
+class PriceJumei(OnlineSpider):
+#class PriceJumei(BasesiteSpider):
+  name = "pricejumei"
+  topic = 'pricejumei'
+  start_urls = [
+    'http://www.jumeiglobal.com/ajax_new/dealinfo?hash_id=ht151105p1256090t2&callback=static_callback',
+    ]
+
+  #解析json
+  def parse(self, response):
+    requests = []
+    '''
+    if self.scheduler == None:
+      self.scheduler = RequestScheduler(topic = self.topic, no_proxy = self.no_proxy, max_request_num = self.max_request_num)
+    requests = self.scheduler.process(response = response)
+    if response.status != 200:
+      return requests
+    '''
+    com_id = re.search(r'hash_id=(\w+)&', response.url).group(1)
+    cur_time = datetime.datetime.now()
+    date = '%04d%02d%02d' % (cur_time.year, cur_time.month, cur_time.day)
+    body_real = response.body_as_unicode().encode('utf-8')
+    price = re.search(r',"jumei_price":(\d+),', body_real)
+    if price != None:
+      price = price.group(1)
+      item = {'com_id':com_id, 'id':com_id+'_'+date, 'price':price, 'date':date }
+      print item
+      #save price
+      facade.save_pricejumei(item)
+
+    return requests

@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_article_haochezhijia_19 import Parserarticle_haochezhijia_list
+from oreo.parser.gaodong_article_haochezhijia_19 import Parserarticle_haochezhijia_item
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_haochezhijia_19'
+	start_urls = ['http://www.clxpw.cn/news/21-18734-1.html']
+	parsers = [Parserarticle_haochezhijia_list(),Parserarticle_haochezhijia_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='des']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pages']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

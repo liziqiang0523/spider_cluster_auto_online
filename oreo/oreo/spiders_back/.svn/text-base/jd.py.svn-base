@@ -1,0 +1,30 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+京东爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.jd import ParserJdList
+from oreo.parser.jd import ParserJdCommodity
+from starturls import jd_list
+
+#class Jd(OnlineSpider):
+class Jd(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserJdList(), ParserJdCommodity()]
+
+  name = 'jd'
+  topic = 'jd'
+  allowed_domain = ['jd.com']
+  start_urls = [] #jd_list
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'jd_commodity_list'},
+    #商品页面
+    {'xpath':'id("plist")/ul/li//div[contains(@class, "p-name")]/a','allow':(r'item.jd.com/\d{4,}.html'),'deny':(r'item.jd.com/\d+.+#.+'),'itemtype':'jd_commodity'},
+  ]
+

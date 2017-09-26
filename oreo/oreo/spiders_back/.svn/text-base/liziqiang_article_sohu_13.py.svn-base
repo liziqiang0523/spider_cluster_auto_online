@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_article_sohu_13'
+	start_urls = ['http://db.auto.sohu.com/baojun-2088/5048/news_4/page_1.html']
+	parsers = []
+	xTargets = [ 
+		{"xpath":"//ul[@id='txt_list']/li","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pagelist_new']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

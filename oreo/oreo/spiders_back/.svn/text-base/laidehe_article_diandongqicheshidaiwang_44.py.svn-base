@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.laidehe_article_diandongqicheshidaiwang_44 import Parserarticle_diandongqicheshidaiwang
+from oreo.parser.laidehe_article_diandongqicheshidaiwang_44 import Parserarticle_diandongqicheshidaiwang_detail
+
+class Luntan(BasesiteSpider):
+	name = 'laidehe_article_diandongqicheshidaiwang_44'
+	start_urls = ['http://www.evdays.com/html/2016/0913/yc53532.html']
+	parsers = [Parserarticle_diandongqicheshidaiwang(),Parserarticle_diandongqicheshidaiwang_detail(),]
+	xTargets = [ 
+		{"xpath":"//div[@id='Content']//div[@class='Wrap_News']//dd//h3","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='Content']//div[@class='PageWrap']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

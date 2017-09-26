@@ -1,0 +1,28 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.huliren_article_chexunwang_38 import Parserarticle_chexunwang_wenzhang_list
+from oreo.parser.huliren_article_chexunwang_38 import Parserarticle_chexunwang_item
+from oreo.parser.huliren_article_chexunwang_38 import Parserariticle_chexunwang_danchedaogou_list
+from oreo.parser.huliren_article_chexunwang_38 import Parservideo_chexunwang_chaichefang_list
+from oreo.parser.huliren_article_chexunwang_38 import Parserarticle_chexunwang_chaifuwu_list
+from oreo.parser.huliren_article_chexunwang_38 import Parserariticle_chexunwang_dashuju_list
+from oreo.parser.huliren_article_chexunwang_38 import Parservideo_chexunwang_chaichefang_item
+from oreo.parser.huliren_article_chexunwang_38 import Parserarticle_chexunwang_yongpinshiyong_item
+from oreo.parser.huliren_article_chexunwang_38 import Parserarticle_chexunwang_zhongjipk_item
+from oreo.parser.huliren_article_chexunwang_38 import Parservideo_chexunwang_chaichefang_item_2
+
+class Luntan(BasesiteSpider):
+	name = 'huliren_article_chexunwang_38'
+	start_urls = ['http://www.chexun.com/mguide/index-38.html']
+	parsers = [Parserarticle_chexunwang_wenzhang_list(),Parserarticle_chexunwang_item(),Parserariticle_chexunwang_danchedaogou_list(),Parservideo_chexunwang_chaichefang_list(),Parserarticle_chexunwang_chaifuwu_list(),Parserariticle_chexunwang_dashuju_list(),Parservideo_chexunwang_chaichefang_item(),Parserarticle_chexunwang_yongpinshiyong_item(),Parserarticle_chexunwang_zhongjipk_item(),Parservideo_chexunwang_chaichefang_item_2(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='article-box']//ul[@class ='article-list']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='content']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page clearfix']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='servebox']//li/p[@class='text02']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='bigdate']//li/p[@class='text02']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='video-con clearfix']//ul[@class='video-list clearfix']//li/p","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

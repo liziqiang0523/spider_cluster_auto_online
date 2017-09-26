@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.linyashan_aticle_zhonghuawangqiche_83 import Parserarticle_zhonghuawangqiche_list
+from oreo.parser.linyashan_aticle_zhonghuawangqiche_83 import Parserarticle_zhonghuawangqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'linyashan_aticle_zhonghuawangqiche_83'
+	start_urls = ['http://auto.china.com/dongtai/pinglun/zhoulei/11173428/20161024/30019765.html']
+	parsers = [Parserarticle_zhonghuawangqiche_list(),Parserarticle_zhonghuawangqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='r10_left']//h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='r10_left']/div[@class='pages']//a[4]","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

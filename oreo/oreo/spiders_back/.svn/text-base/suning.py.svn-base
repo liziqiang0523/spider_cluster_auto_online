@@ -1,0 +1,30 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+京东爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.suning import ParserSuningList
+from oreo.parser.suning import ParserSuningCommodity
+from starturls import jd_list
+
+class Suning(BasesiteSpider):
+#class Suning(OnlineSpider):
+  #在线爬虫配置
+  parsers = [ParserSuningList(), ParserSuningCommodity()]
+
+  name = 'suning'
+  topic = 'suning'
+  allowed_domain = ['suning.com']
+  start_urls = ['http://list.suning.com/0-204553-6-0-0-9103-0-14-0-0-44039.html']
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'jd_commodity_list'},
+    #商品页面
+    {'xpath':'//div[@class="grid"]/ul/li/div/div/a','allow':(r'http://product.suning.com/\d+/\d+.html'),'deny':(r'.*#.+'),'itemtype':'commodity'},
+  ]
+

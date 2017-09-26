@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liangdi_k_aiticle_chanpinceping_wanchewang_56 import Parserarticle_wanchewang_list
+from oreo.parser.liangdi_k_aiticle_chanpinceping_wanchewang_56 import Parserarticle_wanchewang_item
+
+class Luntan(BasesiteSpider):
+	name = 'liangdi_k_aiticle_chanpinceping_wanchewang_56'
+	start_urls = ['http://www.wanche168.com/news/list-1017-0-0-1.html']
+	parsers = [Parserarticle_wanchewang_list(),Parserarticle_wanchewang_item(),]
+	xTargets = [ 
+		{"xpath":"//p[@class='tAtitle']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

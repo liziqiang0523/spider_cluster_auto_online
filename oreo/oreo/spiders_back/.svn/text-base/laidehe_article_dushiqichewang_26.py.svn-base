@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+
+class Luntan(BasesiteSpider):
+	name = 'laidehe_article_dushiqichewang_26'
+	start_urls = ['http://www.citymotors.com.cn/list.php?fid=3']
+	parsers = []
+	xTargets = [ 
+		{"xpath":"//div[@class='Main']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//a[text()='下一页']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

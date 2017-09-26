@@ -1,0 +1,41 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+二手车之家论坛爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.luntan_aika import ParserLuntan_aikaItem
+from oreo.parser.luntan_aika import ParserLuntan_aikaList
+
+class Luntan(OnlineSpider):
+#class Luntan(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserLuntan_aikaItem(),ParserLuntan_aikaList()]
+  #name = 'luntan_aika'
+  #topic = 'luntan_aika'
+  name = 'luntan_aika'
+  topic = 'luntan_aika'
+  #allowed_domain = ['bitauto.com']
+  #allowed_domain = ['http://search.xcar.com.cn']
+  #start_urls = guazi_item_url
+  start_urls = [ 
+  	#'http://club.autohome.com.cn/bbs/thread-c-1007-54029806-1.html'
+	#'http://club.auto.qq.com/forum.php?mod=viewthread&tid=817527'
+  'http://www.xcar.com.cn/bbs/viewthread.php?tid=27000878'
+	#'http://www.xcar.com.cn/bbs/viewthread.php?tid=27015554'
+  ]
+  #fin = open('/data/spider_cluster_test/data_process/data/guazi_series_url','r')
+  #for url in fin:
+   # start_urls.append(url.strip())
+
+  xTargets = [
+    {'xpath':"//dl[@class='list_right']//dt//a",'allow':(),'deny':(),'itemtype':'luntan_aika_item'},
+    #{'xpath':"//div[@class='piclist interest-piclist']//a",'allow':(),'deny':(),'itemtype':'guazi_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+    {'xpath':"//div[@class='article_page_bottom']//a",'allow':(),'deny':(),'itemtype':'luntan_aika_item'},
+  ]

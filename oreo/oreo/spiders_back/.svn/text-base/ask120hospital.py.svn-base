@@ -1,0 +1,64 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming, liziqiang
+'''
+  120ask爬虫 主要抓取并实时解析以下信息：获得所有的医院、医院详细信息、医院科室信息、医院的医生信息、疾病信息
+  由于估计抓取的页面数量少于10万，按照低压力抓取（每5秒抓一个），可一周内抓完，且不会因为代理的原因而漏抓
+'''
+
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.ask120hospital import ParserAsk120Hospital
+from oreo.parser.ask120hospital import ParserAsk120Hostpital_introduce
+from oreo.parser.ask120hospital import ParserAsk120Hostpital_office
+from oreo.parser.ask120hospital import ParserAsk120Doctor
+class Ask120Hospital(OnlineSpider):
+  #is_test = True 
+  parsers =[ParserAsk120Hostpital_introduce(),ParserAsk120Hospital(),ParserAsk120Hostpital_office(),ParserAsk120Doctor()]
+
+  name = "ask120_hospital"
+  topic = "ask120_hospital"
+  allowed_domain = ["120ask.com",]
+
+  start_urls = [
+    #120ask问答页 最新问题
+    'http://data.120ask.com/keshi/l0f5aeb62vc9f5a6.html',
+    #'http://data.120ask.com/yiyuan/list_a110000.html',
+    
+    #'http://data.120ask.com/yiyuan/g9f5aeb62vc9f5ad.html',
+    #'http://data.120ask.com/yiyuan/jieshao/g9f5aeb62vc9f5ad.html',
+    #'http://data.120ask.com/yiyuan/jieshao/g9f5aeb62vc9f5ad.html',
+    #'http://data.120ask.com/yiyuan/keshi/g9f5aeb62vc9f5ad.html',
+    
+    ]
+  
+  xListLink = [
+    #{'xpath':'', 'allow':(), 'deny':(), 'itemtype':''}, 
+    #医院所在区域的列表 from: http://data.120ask.com/yiyuan/list_a110000.html
+    {'xpath':'id("z-diqu")/div[1]', 'allow':(r'http://data.120ask.com/yiyuan/list_a.*'), 'deny':(), 'itemtype':'list_hostpital_area'}, 
+    #下一页
+    {'xpath':'//div[@class="page"]', 'allow':(r'yiyuan/list'), 'deny':(), 'itemtype':'list_hostpital_nextpage'}, 
+    #-----医院信息页---- from: http://data.120ask.com/yiyuan/g9f5aeb62vc9f5ad.html
+    #医生列表 -- from: http://data.120ask.com/yiyuan/jibing/g9f5aeb62vc9f5ad.html
+    {'xpath':'//div[contains(@class, "m-tab")]', 'allow':(r'yiyuan/jibing/.*html'), 'deny':(), 'itemtype':'list_doctor'}, 
+    {'xpath':'//div[@class="page"]', 'allow':(r'http://data.120ask.com/yiyuan/jibing/'), 'deny':(), 'itemtype':'list_doctor'}, 
+    {'xpath':'//table//tr//a[contains(@class, "cla_more")]', 'allow':(r'http://data.120ask.com/yiyuan/goodat/.*'), 'deny':(), 'itemtype':'list_doctor'}, 
+    #医生列表 -- from http://data.120ask.com/yiyuan/goodat/g9f5aeb62vc9f5ad?kw=%E7%9C%BC%E5%BA%95%E7%97%85
+    {'xpath':'//div[@class="page"]', 'allow':(r'http://data.120ask.com/yiyuan/goodat/.*'), 'deny':(), 'itemtype':'list_doctor'}, 
+    #科室列表页---from 
+    #医院科室 from: http://data.120ask.com/yiyuan/g9f5aeb62vc9f5ad.html
+    {'xpath':'//div[contains(@class, "m-tab")]', 'allow':(r'/yiyuan/keshi/.*html'), 'deny':(), 'itemtype':'list__hospital_office'}, 
+    #{'xpath':'', 'allow':(), 'deny':(), 'itemtype':''}, 
+    ]
+
+  xTargets =  [
+    #hospital from: http://data.120ask.com/yiyuan/list_a110000.html
+    {'xpath':'//div[@class="fl z-box1 w-zbox1"]/h2', 'allow':(r'/yiyuan/.*html'), 'deny':(), 'itemtype':'item_hospital'}, 
+    #-----医院信息页----
+    #医院介绍 from: http://data.120ask.com/yiyuan/g9f5aeb62vc9f5ad.html
+    {'xpath':'//div[contains(@class, "m-tab")]', 'allow':(r'/yiyuan/jieshao/.*html'), 'deny':(), 'itemtype':'item_hostpital_introduce'}, 
+    #医院医生 from http://data.120ask.com/yiyuan/jibing/g9f5aeb62vc9f5ad.html  http://data.120ask.com/yiyuan/goodat/g9f5aeb62vc9f5ad?kw=%E7%9C%BC%E5%BA%95%E7%97%85
+    {'xpath':'//table//tr//a', 'allow':(r'http://data.120ask.com/yisheng/.*'), 'deny':(), 'itemtype':'item_doctor'}, 
+    {'xpath':'//table//h3', 'allow':(r'http://data.120ask.com/yisheng/.*'), 'deny':(), 'itemtype':'item_doctor'},
+    #医院科室  from:http://data.120ask.com/yiyuan/keshi/g9f5aeb62vc9f5ad.html
+    {'xpath':"//ul[contains(@class,'clears')]//a", 'allow':(r'http://data.120ask.com/keshi/.*'), 'deny':(), 'itemtype':'item_office'},
+    ]

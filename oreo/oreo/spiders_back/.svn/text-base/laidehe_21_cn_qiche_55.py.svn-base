@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.laidehe_21_cn_qiche_55 import Parser21_cn_qiche
+from oreo.parser.laidehe_21_cn_qiche_55 import Parser21_cn_qiche
+
+class Luntan(BasesiteSpider):
+	name = 'laidehe_21_cn_qiche_55'
+	start_urls = ['http://auto.21cn.com/yongche/zhiliang/a/2016/1017/09/31620917.shtml']
+	parsers = [Parser21_cn_qiche(),Parser21_cn_qiche(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='page_list col-l']//div[@class='pic-list clearfix']//h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page_list col-l']//div[@class='page-box']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

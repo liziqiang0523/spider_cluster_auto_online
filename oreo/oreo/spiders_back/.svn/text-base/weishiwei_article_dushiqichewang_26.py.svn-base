@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.weishiwei_article_dushiqichewang_26 import Parserarticle_dushiqichewang_list30
+from oreo.parser.weishiwei_article_dushiqichewang_26 import Parserarticle_dushiqichewang_item37
+
+class Luntan(BasesiteSpider):
+	name = 'weishiwei_article_dushiqichewang_26'
+	start_urls = ['http://www.citymotors.com.cn/bencandy.php?fid=40&id=13932']
+	parsers = [Parserarticle_dushiqichewang_list30(),Parserarticle_dushiqichewang_item37(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='Main']//td[@class='middle']/table","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

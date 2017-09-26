@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.zhengda_video_yueyeyizu_86 import Parservideo_yueyeyizu_list160
+from oreo.parser.zhengda_video_yueyeyizu_86 import Parservideo_yueyeyizu_item162
+
+class Luntan(BasesiteSpider):
+	name = 'zhengda_video_yueyeyizu_86'
+	start_urls = ['http://v.fblife.com/html/20161001/177306.html']
+	parsers = [Parservideo_yueyeyizu_list160(),Parservideo_yueyeyizu_item162(),]
+	xTargets = [ 
+		{"xpath":"//h1//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

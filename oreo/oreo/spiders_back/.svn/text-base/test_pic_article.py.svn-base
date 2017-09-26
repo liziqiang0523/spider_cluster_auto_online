@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+import scrapy
+from oreo.spiders.basepic import BasePicSpider
+
+class TestSpider(BasePicSpider):
+  name = "test_pic_article"
+  max_request_num = 6000
+  start_urls = [
+    'http://www.xin.com/beijing/'
+    #'https://www.baidu.com/'
+    #'http://news.xinmin.cn/'
+    #'http://www.autohome.com.cn/news/'
+     ]
+
+
+
+
+
+

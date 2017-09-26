@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.weishiwei_article_xinhuaqiche_50 import Parserarticle_xinhuaqiche_list
+from oreo.parser.weishiwei_article_xinhuaqiche_50 import Parserarticle_xinhuaqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'weishiwei_article_xinhuaqiche_50'
+	start_urls = ['http://www.news.cn/auto/xw.htm']
+	parsers = [Parserarticle_xinhuaqiche_list(),Parserarticle_xinhuaqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//ul[@class='dataList']//li[@class='clearfix']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

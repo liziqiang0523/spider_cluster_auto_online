@@ -1,0 +1,37 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+二手车之家论坛爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.luntan_yiche import ParserLuntan_yicheItem
+from oreo.parser.luntan_yiche import ParserLuntan_yicheList
+
+#class Luntan(OnlineSpider):
+class Luntan(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserLuntan_yicheItem(),ParserLuntan_yicheList()]
+  name = 'luntan_yiche'
+  topic = 'luntan_yiche'
+  #allowed_domain = ['bitauto.com']
+  #start_urls = guazi_item_url
+  start_urls = [ 
+    'http://baa.bitauto.com/photo/thread-9476844.html'
+  ]
+  #fin = open('/data/spider_cluster_test/data_process/data/guazi_series_url','r')
+  #for url in fin:
+   # start_urls.append(url.strip())
+
+  xTargets = [
+    {'xpath':"//h3/a",'allow':(),'deny':(),'itemtype':'luntan_yiche_item'},
+    #汽车item
+    #感兴趣的车
+    #{'xpath':"//div[@class='piclist interest-piclist']//a",'allow':(),'deny':(),'itemtype':'guazi_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+    {'xpath':"//div[@class='page-warp']//a",'allow':(),'deny':(),'itemtype':'luntan_yiche_item'},
+  ]

@@ -1,0 +1,108 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming
+'''
+  新url抓取调度策略
+  保持scheduler中的下载队列不空，并且已较低的速度增长
+logging.basicConfig(level = logging.INFO, 
+  format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s', 
+  datefmt = '%a, %d %b %Y %H:%M:%S',
+  filename = '%s/%s' % (settings.LOG_PATH, settings.LOG_SPIDER),
+  filemode = 'a')
+'''
+
+import traceback, sys, logging, json, time
+#from pykafka import KafkaClient
+from oreo import settings
+from scrapy.http import Request
+from oreo.facade import facade
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+class RequestScheduler:
+  def __init__(self, topic = '', no_proxy = 0, max_request_num = 1000000, mid = 'mid'):
+    #每次从数据库加载的待抓取url的数量 初次很大 之后是10分之1
+    self.topic = topic
+    self.max_request_num = max_request_num
+    self.url_num_load = 100
+    self.mid = mid
+    self.url_num= 1 
+    #是否需要代理 1-no 0-yes
+    self.no_proxy = 0
+    #每次从数据库加载后 调度计数器 用于补助Request数量
+    self.call_cnt=0
+    #kafka
+    client = KafkaClient(hosts = settings.KAFKA_HOSTPORT)
+    if topic not in client.topics:
+      logging.error("topic not exist! topic[%s]-mid[%s] not exist topics:%s" % (topic, mid, client.topics))
+      sys.exit(0)
+    self.consumer = client.topics[topic].get_balanced_consumer(
+      consumer_group = topic,
+      auto_commit_enable = True,
+      zookeeper_connect = settings.ZOOKEEPER_CONNECT,
+      consumer_timeout_ms = 30000)
+
+  #spider每次有response进来时都调用这个函数，有本函数决定调出多少个request
+  def process(self, response = None):
+    requests = []
+    self.call_cnt += 1
+    #有意设置较高的调度阀值，使爬虫实例在数小时内会中断，再由monitor重启
+    if self.call_cnt >= self.url_num * 0.7:
+      logging.info('[%s]-mid[%s] url数量需要补充，call_cnt=[%d] self.url_num=[%d]' % (self.topic, self.mid, self.call_cnt, self.url_num))
+      requests = self.get_request(get_req_num = self.url_num_load)
+    logging.debug('now call_cnt[%d] self.url_num[%d] newReqNum[%d] 剩余调度数:%d' % (self.call_cnt,self.url_num,len(requests), self.max_request_num))
+    return requests
+
+  #从kafka队列中取出指定数量的request
+  def get_request(self, get_req_num = 100):
+    #从数据库加载适当的url，发送抓
+    urlinfos = []
+    #超过最大调度数则停止调度
+    if self.max_request_num <= 0:
+      logging.info("[%s]-mid[%s] 已经达到最大调度数，不再进行调度了，等待爬虫自己结束" % (self.topic, self.mid))
+      return []
+    time_begin = time.time()
+    logging.info("调度-rquest-fetch. topic[%s]-mid[%s]" % (self.topic, self.mid))
+    try:
+      for cnt in range(get_req_num):
+        msg = self.consumer.consume()
+        if msg is None:
+          logging.warning('kafka任务调度为空. topic[%s]-mid[%s] host[%s] zookeep[%s]  当前获得任务数:%d' % (self.topic, self.mid, settings.KAFKA_HOSTPORT, settings.ZOOKEEPER_CONNECT, len(urlinfos)))
+          break
+        msg = msg.value
+        #logging.info("get a msg from kafka:%s" % msg)
+        urlinfos.append(json.loads(msg))
+        #break
+      logging.info("[%s]-mid[%s] 获得调度任务数:%d" % (self.topic, self.mid, len(urlinfos)))
+    except Exception,e:
+      logging.warning("mid[%s]获取调度任务发生异常，当前获得任务数:%d msg:%s" % (self.mid, len(urlinfos), e))
+    time_end = time.time()
+    time_cost = time_end - time_begin
+    logging.info('topic[%s]-mid[%s] kakfka调度cost[%d], len[%d]' % (self.topic, self.mid, time_cost, len(urlinfos)))
+    #self.url_num = len(urlinfos) 去掉，因为这导致爬虫迟迟不能执行完已调度任务
+    self.url_num = self.url_num_load
+    self.call_cnt = 0
+
+    requests=[]
+    for urlinfo in urlinfos:
+      self.max_request_num -= 1
+      #过滤掉脏链接
+      if urlinfo["url"][:7] != 'http://' and urlinfo["url"][:8] != 'https://':
+        continue
+      try:
+        #调度次数+1
+        #facade.update_schedule_time(urlinfo['spider_name'], urlinfo['url'])
+        url=urlinfo["url"]
+        logging.debug("request-url:%s" % url)
+        #对domain进行过滤
+
+        req = Request(url, dont_filter=True)
+        req.meta['no_proxy'] = self.no_proxy
+        for k,v in urlinfo.items():
+          req.meta[k] = v
+        requests.append(req)
+      except Exception,e:
+        logging.warning("create request failed. exception:%s" % e)
+        logging.warning("request failed url is:%s" % urlinfo['url'])
+    return requests

@@ -1,0 +1,45 @@
+# coding=utf-8
+#author:shiyuming
+'''
+  suning价格抓取
+'''
+
+import sys, traceback, logging,re, json, datetime
+from oreo.spiders.basesite import BasesiteSpider
+from basesiteonline import OnlineSpider
+from oreo.facade import facade
+from scrapy.selector import Selector
+
+class PriceYhd(OnlineSpider):
+#class PriceYhd(BasesiteSpider):
+  name = "priceyhd"
+  topic = 'priceyhd'
+  start_urls = [
+    #http://item.yhd.com/item/5303766
+    'http://gps.yhd.com/restful/detail?mcsite=1&provinceId=2&pmId=5303766&callback=jQuery111306934413579292595_1446708903823&_=1446708903824',
+    ]
+
+  #解析json
+  def parse(self, response):
+    requests = []
+    '''
+    if self.scheduler == None:
+      self.scheduler = RequestScheduler(topic = self.topic, no_proxy = self.no_proxy, max_request_num = self.max_request_num)
+    requests = self.scheduler.process(response = response)
+    if response.status != 200:
+      return requests
+    '''
+    com_id = re.search(r'&pmId=(\d+)&', response.url).group(1)
+    cur_time = datetime.datetime.now()
+    date = '%04d%02d%02d' % (cur_time.year, cur_time.month, cur_time.day)
+    body_real = response.body_as_unicode().encode('utf-8')
+    print body_real
+    price = re.search(r'"currentPrice":(\d+),', body_real)
+    if price != None:
+      price = price.group(1)
+      item = {'com_id':com_id, 'id':com_id+'_'+date, 'price':price, 'date':date }
+      #save price
+      facade.save_priceyhd(item)
+
+    return requests
+

@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liziqiang_article_sina_12 import Parserarticle_sina_item
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_article_sina_12'
+	start_urls = ['http://k.sina.cn/article_1958119891_74b689d3001001jhy.html?from=auto&subch=nauto&vt=4']
+	parsers = [Parserarticle_sina_item(),]
+	xTargets = [ 
+		{"xpath":"//ul[@class='J_sharelist J_likeAddDel img_list  clearfix']/li/p/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pagination clearfix']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

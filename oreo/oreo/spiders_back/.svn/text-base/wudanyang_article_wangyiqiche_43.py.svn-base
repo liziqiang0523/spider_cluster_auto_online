@@ -1,0 +1,17 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.wudanyang_article_wangyiqiche_43 import Parserarticle_wangyiqiche_list
+from oreo.parser.wudanyang_article_wangyiqiche_43 import Parserarticle_wangyiqiche_item
+from oreo.parser.wudanyang_article_wangyiqiche_43 import Parserarticle_wangyiqiche_blog_list
+
+class Luntan(BasesiteSpider):
+	name = 'wudanyang_article_wangyiqiche_43'
+	start_urls = ['http://auto.163.com/16/1018/07/C3L46MR00008856V.html']
+	parsers = [Parserarticle_wangyiqiche_list(),Parserarticle_wangyiqiche_item(),Parserarticle_wangyiqiche_blog_list(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='sec-list-item auto_news_item ']/div/h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='auto_channel_pages']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

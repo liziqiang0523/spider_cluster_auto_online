@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.zhengda_article_yueyeyizu_59 import Parserarticle_yueyeyizu_list
+from oreo.parser.zhengda_article_yueyeyizu_59 import Parserarticle_yueyeyizu_item
+
+class Luntan(BasesiteSpider):
+	name = 'zhengda_article_yueyeyizu_59'
+	start_urls = ['http://newcar.fblife.com/html/20161101/178321.html']
+	parsers = [Parserarticle_yueyeyizu_list(),Parserarticle_yueyeyizu_item(),]
+	xTargets = [ 
+		{"xpath":"//h1/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

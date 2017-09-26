@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.laidehe_article_chinacar_71 import Parserarticle_chinacar
+from oreo.parser.laidehe_article_chinacar_71 import Parserarticle_chinacar
+
+class Luntan(BasesiteSpider):
+	name = 'laidehe_article_chinacar_71'
+	start_urls = ['http://www.chinacar.com.cn/newsview125367.html']
+	parsers = [Parserarticle_chinacar(),Parserarticle_chinacar(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='news_left']/div[@class='tag_lists']//li","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='news_left']//div[@class='page']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

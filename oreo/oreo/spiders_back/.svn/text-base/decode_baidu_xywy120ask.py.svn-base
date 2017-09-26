@@ -1,0 +1,23 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming
+'''
+  xywy问答爬虫
+'''
+
+from oreo.spiders.decode_baiduse import BaiduSpider
+from oreo.parser.xywy_qa import ParserxywyQuestion
+from oreo.parser.xywy_qa import ParserxywyAnswer
+from oreo.parser.ask120_qa import ParserAsk120Question
+from oreo.parser.ask120_qa import ParserAsk120Answer
+
+class xywy120ask(BaiduSpider):
+  name = "xywy120ask_qa"
+  task_query = "querys_xywy120ask"
+  decode_url_table_name = 'xywy120ask_seitem'
+  se_url_patterns = [
+    'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%s site:club.xywy.com&rsv_pq=%s&rsv_t=%s&rqlang=cn&rsv_enter=1&rsv_sug3=6&rsv_sug1=5&rsv_sug7=100&rsv_sug2=0&inputT=809&rsv_sug4=1240&rsv_sug=1',
+    'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%s site:www.120ask.com&rsv_pq=%s&rsv_t=%s&rqlang=cn&rsv_enter=1&rsv_sug3=6&rsv_sug1=5&rsv_sug7=100&rsv_sug2=0&inputT=809&rsv_sug4=1240&rsv_sug=1' 
+    ]
+  parsers = [ ParserxywyQuestion(), ParserxywyAnswer(), ParserAsk120Question(), ParserAsk120Answer() ]
+

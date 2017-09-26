@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.wudanyang_article_wangyiqiche_chuangxingongchang_62 import Parserarticle_wangyiqiche_chuangxingongchang_list
+
+class Luntan(BasesiteSpider):
+	name = 'wudanyang_article_wangyiqiche_chuangxingongchang_62'
+	start_urls = ['http://auto.163.com/innovationworks']
+	parsers = [Parserarticle_wangyiqiche_chuangxingongchang_list(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='article']//h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

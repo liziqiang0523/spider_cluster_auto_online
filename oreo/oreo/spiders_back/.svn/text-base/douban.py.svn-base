@@ -1,0 +1,45 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+抓取豆瓣所有书。
+'''
+
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.douban import ParserDouban
+from oreo.spiders.starturls import douban_list
+
+class Douban(BasesiteSpider):
+#class Douban(OnlineSpider):
+  #is_test = True 
+
+  name = "douban"
+  topic = "douban"
+  allowed_domain = ["book.douban.com"]
+  parsers =[ParserDouban()]
+
+  
+  xListLink = [
+    #{'xpath':'', 'allow':(), 'deny':(), 'itemtype':''}, 
+    #；各类书的列表
+    #from :http://book.douban.com/tag/?icn=index-nav 
+    {"xpath":"//div[contains(@class,'article')]//a", 'allow':(r'(http://www.douban.com/tag*)'), 'deny':(), 'itemtype':'list_book'}, 
+    #下一页   from：http://www.douban.com/tag/%E5%B0%8F%E8%AF%B4/book
+    
+    #各类书列表下的全部 from: http://www.douban.com/tag/%E5%B0%8F%E8%AF%B4/?focus=book
+    {"xpath":"//div[contains(@class,'clearfix mod')]//a[contains(@class,'more-links')]", 'allow':(r'(http://www.douban.com/tag*)'), 'deny':(), 'itemtype':'list_book'}, 
+    #下一页   from：http://www.douban.com/tag/%E5%B0%8F%E8%AF%B4/book
+    {"xpath":"//div[contains(@class,'paginator')]", 'allow':(r'(http://www.douban.com/tag*)'), 'deny':(), 'itemtype':'list_book'}, 
+    #所有的book频道的链接
+    {"xpath":"//a", 'allow':(r'^http://book.douban.com/'), 'deny':(r'/wishes', r'/review/', r'/collections'), 'itemtype':'list_book'}, 
+    ]
+
+  xTargets =  [
+    #图书的详情页
+    # from：http://www.douban.com/tag/%E5%B0%8F%E8%AF%B4/book 
+    {'xpath':"//div[contains(@class,'mod book-list')]//dd/a", 'allow':(r'http://book.douban.com/subject/*'), 'deny':(), 'itemtype':'item_book'}, 
+    {'xpath':"//a[contains(@href,'http://book.douban.com/subject')]", 'allow':(r'^http://book.douban.com/subject/\d+/$'), 'deny':(), 'itemtype':'item_book'}, 
+    ]
+
+  start_urls = ['http://www.douban.com/tag/%E4%B8%AD%E5%9B%BD%E6%96%87%E5%AD%A6/?focus=book', 'http://book.douban.com/subject/2567698/?from=tag'] #douban_list #[ 'http://book.douban.com/subject/26414020/?from=tag_all', ] #豆瓣图书全部分类

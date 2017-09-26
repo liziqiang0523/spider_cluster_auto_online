@@ -1,0 +1,30 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+我买网爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.tmall import ParserTmallList
+from oreo.parser.tmall import ParserTmallCommodity
+from starturls import jd_list
+
+#class Tmall(BasesiteSpider):
+class Tmall(OnlineSpider):
+  #在线爬虫配置
+  parsers = [ParserTmallList(), ParserTmallCommodity()]
+
+  name = 'tmall'
+  topic = 'tmall'
+  allowed_domain = ['tmall.com']
+  start_urls = ['http://www.tmall.com/Sort-0-66105.htm']
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'jd_commodity_list'},
+    #商品页面
+    {'xpath':"//li[@class='product']//h3",'allow':(r''),'deny':(r'.*#.+'),'itemtype':'commodity'},
+  ]
+

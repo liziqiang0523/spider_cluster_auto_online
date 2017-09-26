@@ -1,0 +1,46 @@
+# coding=utf-8
+#author:shiyuming
+'''
+  suning价格抓取
+'''
+
+import sys, traceback, logging,re, json, datetime
+from oreo.spiders.basesite import BasesiteSpider
+from basesiteonline import OnlineSpider
+from oreo.facade import facade
+from scrapy.selector import Selector
+
+class PriceDangdang(OnlineSpider):
+#class PriceDangdang(BasesiteSpider):
+  name = "pricedangdang"
+  topic = 'pricedangdang'
+  start_urls = [
+    #'http://www.suning.com/emall/psl_10052_10051_000000000135514312_9017_10106_FourPage.showShopList_.html?callback=FourPage.showShopList',
+    #'http://www.suning.com/emall/psl_10052_10051_000000000125008426_9017_10106_FourPage.showShopList_.html?callback=FourPage.showShopList',
+    'http://product.dangdang.com/23678218.html',
+    ]
+
+  #解析json
+  def parse(self, response):
+    requests = []
+    '''
+    if self.scheduler == None:
+      self.scheduler = RequestScheduler(topic = self.topic, no_proxy = self.no_proxy, max_request_num = self.max_request_num)
+    requests = self.scheduler.process(response = response)
+    if response.status != 200:
+      return requests
+    '''
+    com_id = re.search(r'product.dangdang.com/(\d+).html', response.url).group(1)
+    cur_time = datetime.datetime.now()
+    date = '%04d%02d%02d' % (cur_time.year, cur_time.month, cur_time.day)
+    hxs = Selector(response)
+    results = hxs.xpath("//div[contains(@class, 'price_qiang')]/div/span[@class='price_d']/text()").re(r'(\d+\.\d*)')
+    if results != None and len(results) >= 1:
+      price = results[0]
+      item = {'com_id':com_id, 'id':com_id+'_'+date, 'price':price, 'date':date}
+      #save price
+      facade.save_pricedangdang(item)
+    else:
+      logging.warning('解析当当价格失败. url:%s' % response.url)
+
+    return requests

@@ -1,0 +1,41 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+二手车之家爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.che import ParserCheItem
+from oreo.parser.che import ParserCheList
+from oreo.parser.che import ParserCheShop
+from oreo.parser.che import ParserCheItem_business
+#from che_item_urls import che_item_url
+
+#class Che(OnlineSpider):
+class Che(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserCheItem(),ParserCheItem_business(),ParserCheShop(),ParserCheList()]
+  #parsers = [ParserCheShop()]
+  name = 'che'
+  topic = 'che'
+  #allowed_domain = ['bitauto.com']
+  #start_urls = che_item_url
+  start_urls = [
+    'http://www.che168.com/china/',
+    'http://www.che168.com/china/list',
+    ]
+  xTargets = [
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'che_commodity_list'},
+    #首页汽车item
+    {'xpath':"//h3/a",'allow':(),'deny':(),'itemtype':'che_item'},
+    #汽车item
+    #商家url挖掘
+    {'xpath':"//div[@class='merchants-info']//a[@class='btn btn-small']",'allow':(),'deny':(),'itemtype':'che_shop'},
+   
+    ]
+  xListLink = [
+    #下一页--list页  
+    {'xpath':"//div[@class='page fn-clear']//a",'allow':(),'deny':(),'itemtype':'che_list'},
+    ]

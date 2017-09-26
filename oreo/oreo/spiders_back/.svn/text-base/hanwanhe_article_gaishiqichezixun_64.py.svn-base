@@ -1,0 +1,22 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.hanwanhe_article_gaishiqichezixun_64 import Parserarticle_gaishiqichezixun_list
+from oreo.parser.hanwanhe_article_gaishiqichezixun_64 import Parserarticle_gaishiqichezixun_item
+from oreo.parser.hanwanhe_article_gaishiqichezixun_64 import Parserarticle_gaishiqichezixun_huanqiuqiche_list
+from oreo.parser.hanwanhe_article_gaishiqichezixun_64 import Parserarticle_gaishiqichezixun_yuanchuangfangtan_list
+from oreo.parser.hanwanhe_article_gaishiqichezixun_64 import Parserarticle_gaishiqichezixun_huanqiuqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'hanwanhe_article_gaishiqichezixun_64'
+	start_urls = ['http://auto.cri.cn/261/more/276/more276_6.htm']
+	parsers = [Parserarticle_gaishiqichezixun_list(),Parserarticle_gaishiqichezixun_item(),Parserarticle_gaishiqichezixun_huanqiuqiche_list(),Parserarticle_gaishiqichezixun_yuanchuangfangtan_list(),Parserarticle_gaishiqichezixun_huanqiuqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='news']//ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='country']/ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='mLeft']//dl/dd/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='dpages']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

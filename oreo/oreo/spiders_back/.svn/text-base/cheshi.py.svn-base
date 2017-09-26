@@ -1,0 +1,51 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+网上车市问答爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.cheshi import ParserCheshiList
+from oreo.parser.cheshi import ParserCheshiQuestion
+from oreo.parser.cheshi import ParserCheshiAnswer
+#from cheshi_item_urls import cheshi_item_url
+
+#class Cheshi(OnlineSpider):
+class Cheshi(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserCheshiList(), ParserCheshiQuestion(),ParserCheshiAnswer()]
+
+  name = 'cheshi'
+  topic = 'cheshi'
+  allowed_domain = ['cheshi.com']
+  #start_urls = cheshi_item_url
+  start_urls = [
+    'http://ask.cheshi.com/t_buy/',
+    'http://ask.cheshi.com/t_guohu/',
+    'http://ask.cheshi.com/t_pinggu/',
+    'http://ask.cheshi.com/t_sale/',
+    'http://ask.cheshi.com/t_buy/p_2/',
+    'http://ask.cheshi.com/detail_1101143.html',
+    'http://ask.cheshi.com/t_buy/p_7/',
+    'http://ask.cheshi.com/t_buy/p_37/',
+    'http://ask.cheshi.com/t_buy/p_77/',
+    'http://ask.cheshi.com/t_guohu/p_11/',
+    'http://ask.cheshi.com/t_pinggu/p_6/',
+    'http://ask.cheshi.com/t_pinggu/p_66/',
+    'http://ask.cheshi.com/t_sale/p_5/',
+    'http://ask.cheshi.com/t_sale/p_55/',
+    'http://ask.cheshi.com/t_sale/p_65/',
+    'http://ask.cheshi.com/t_sale/p_25/',
+    ]
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'cheshi_commodity_list'},
+    #商品页面
+    {'xpath':"//div[@class='ak_list']//p/a[contains(@href,'detail')]",'allow':(),'deny':(),'itemtype':'cheshi_question'},
+  ]
+  xListLink = [
+    {'xpath':"//div[@class='pagebox']//a",'allow':(),'deny':(),'itemtype':'cheshi_question_list'},
+  ]

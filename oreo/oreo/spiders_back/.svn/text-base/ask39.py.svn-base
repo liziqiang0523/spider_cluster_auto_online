@@ -1,0 +1,44 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+抓取39问医生的问题标签
+'''
+#from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.ask39 import ParserAsk39
+from oreo.parser.ask39 import ParserAnswer39
+from oreo.spiders.basesite import BasesiteSpider
+from starturls import ask39_list
+
+#class Ask39(OnlineSpider):
+class Ask39(BasesiteSpider):
+ # is_test = True
+  parsers = [ParserAsk39(), ParserAnswer39()]
+
+  name = 'ask39'
+  topic = 'ask39'
+  allowed_domain = ["ask.39.net"]
+
+  xListLink = [
+  #各科室问题列表   form：http://ask.39.net/
+  {"xpath":"//div[contains(@class,'nav_more')]//dt",'allow':(r'http://ask.39.net/browse/.*'),'deny':(),'itemtype':'list_question'},
+  #各科室疾病类问题列表 form：http://ask.39.net/browse/237-1-1.html
+  {"xpath":"//div[contains(@class,'clearfix')]//li//a",'allow':(r'http://ask.39.net/browse/.    *'),'deny':(),'itemtype':'list_question'},
+  #问题列表页的下一页 form：http://ask.39.net/browse/9202-1-1.html
+  {"xpath":"//span[contains(@class,'pages')]",'allow':(r''),'deny':(),'itemtype':'list_question'},
+  #问题页面的推荐问题列表：from：http://ask.39.net/question/13805246.html
+  #{"xpath":"//div[contains(@class,'related')]",'allow':(r'http://ask.39.net/question/.*'),'deny':(),'itemtype':''},
+
+  ]
+
+  xTargets = [
+  #form: http://ask.39.net/browse/237-1-1.html
+  #{"xpath":"//div[contains(@class,'clearfix')]//li//a",'allow':(r'http://ask.39.net/question/.*'),'deny':(),'itemtype':'item_question'},
+  #from: http://ask.39.net/browse/9202-1-1.html
+  {"xpath":"//div[contains(@class,'cap')]",'allow':(r'http://ask.39.net/question/.*'),'deny':(),'itemtype':'item_question'},
+
+  ]
+  
+  start_urls = ask39_list
+ 
+

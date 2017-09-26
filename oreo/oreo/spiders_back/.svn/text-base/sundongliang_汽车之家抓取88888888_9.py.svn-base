@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+
+class Luntan(BasesiteSpider):
+	max_request_num = 0
+	name = 'sundongliang_汽车之家抓取88888888_9'
+	start_urls = ['http://www.baidu.com']
+	parsers = []
+	xTargets = [ 
+		{"xpath":"dfsdsfs","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

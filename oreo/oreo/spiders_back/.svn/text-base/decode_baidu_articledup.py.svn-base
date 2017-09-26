@@ -1,0 +1,22 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming
+'''
+  法务需求：确认一偏文章是否在其他网站中出现，以便确认文章是否独家且涉及版权
+  需求明细：
+    为规避法律风险，需要知晓汽车之家的文章在其他网站是否有转载。如其他网站有转载，记录其中两个网站名称及URL。
+    基本方式就是，将BI采集来源为汽车之家的文章，将文章标题在搜索引擎进行搜索，在搜索结果中找到标题完全匹配的3个搜索结果并记录其URL。
+'''
+import sys, re,traceback, logging, math, time, datetime, urllib
+
+from oreo.facade import facade
+from oreo.spiders.decode_baiduse import BaiduSpider
+
+class LawArticle(BaiduSpider):
+  name = "law_article"
+  task_query = "querys_lawarticle"
+  decode_url_table_name = 'lawarticle_seitem'
+  se_url_pattern = 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=%s&rsv_pq=%s&rsv_t=%s&rqlang=cn&rsv_enter=1&rsv_sug3=6&rsv_sug1=5&rsv_sug7=100&rsv_sug2=0&inputT=809&rsv_sug4=1240&rsv_sug=1' 
+  parsers = [ ]
+  max_request_num = 5000
+

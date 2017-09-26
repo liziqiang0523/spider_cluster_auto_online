@@ -1,0 +1,40 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+新车评爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.luntan_xincheping import ParserLuntan_xinchepingItem
+from oreo.parser.luntan_xincheping import ParserLuntan_xinchepingList
+
+#class Luntan(OnlineSpider):
+class Luntan(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserLuntan_xinchepingItem(),ParserLuntan_xinchepingList()]
+  #name = 'luntan_xincheping'
+  #topic = 'luntan_xincheping'
+  name = 'luntan_xincheping'
+  topic = 'luntan_xincheping'
+  #allowed_domain = ['bitauto.com']
+  #start_urls = guazi_item_url
+  start_urls = [ 
+	  'http://www.xincheping.com/search/index.do?channelRoot=pingce&q=%E6%8F%90%E8%BD%A6'
+	  #'http://www.xincheping.com/changce/98164.html'
+  ]
+  #fin = open('/data/spider_cluster_test/data_process/data/guazi_series_url','r')
+  #for url in fin:
+   # start_urls.append(url.strip())
+
+  xTargets = [
+    {
+		'xpath':"//div[@class='idx_box']//a",'allow':(),'deny':(),'itemtype':'luntan_xincheping_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+    {
+		'xpath':"//form[@method='get']//a",'allow':(),'deny':(),'itemtype':'luntan_xincheping_item'
+	},
+  ]

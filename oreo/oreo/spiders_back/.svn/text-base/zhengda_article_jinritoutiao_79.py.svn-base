@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.zhengda_article_jinritoutiao_79 import Parserarticle_jinritoutiao
+
+class Luntan(BasesiteSpider):
+	name = 'zhengda_article_jinritoutiao_79'
+	start_urls = ['http://www.toutiao.com/m50093027153/']
+	parsers = [Parserarticle_jinritoutiao(),]
+	xTargets = [ 
+		{"xpath":"//a[@class='title-box link']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

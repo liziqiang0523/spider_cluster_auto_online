@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+
+class Luntan(BasesiteSpider):
+	name = 'zhengda_article_chezhidao_32'
+	start_urls = ['http://www.zdcar.com.cn/test/']
+	parsers = []
+	xTargets = [ 
+		{"xpath":"//span[@class='title']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='pages']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

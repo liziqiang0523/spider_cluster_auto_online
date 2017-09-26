@@ -1,0 +1,30 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+当当网爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.dangdang import ParserDangdangCommodity
+from oreo.parser.dangdang import ParserDangdangList
+from starturls import jd_list
+
+#class Dangdang(BasesiteSpider):
+class Dangdang(OnlineSpider):
+  #在线爬虫配置
+  parsers = [ParserDangdangCommodity(),ParserDangdangList()]
+
+  name = 'dangdang'
+  topic = 'dangdang'
+  allowed_domain = ['dangdang.com']
+  start_urls = ['http://category.dangdang.com/cid4001075.html']
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'jd_commodity_list'},
+    #商品页面
+    {'xpath':'//div[contains(@class,"inner")]/a','allow':(r''),'deny':(r''),'itemtype':'commodity'},
+  ]
+

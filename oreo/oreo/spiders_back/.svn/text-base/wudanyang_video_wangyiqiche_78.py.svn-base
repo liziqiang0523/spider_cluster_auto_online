@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.wudanyang_video_wangyiqiche_78 import Parservideo_wangyiqiche_list
+from oreo.parser.wudanyang_video_wangyiqiche_78 import Parservideo_wangyiqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'wudanyang_video_wangyiqiche_78'
+	start_urls = ['http://v.auto.163.com/video/2016/11/G/U/VC3UAU8GU.html']
+	parsers = [Parservideo_wangyiqiche_list(),Parservideo_wangyiqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='v_list_item auto_news_item ' or @class='v_list_item auto_news_item']//h3//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='auto_channel_pages']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

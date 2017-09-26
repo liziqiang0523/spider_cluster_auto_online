@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liangdi_k_aiticle_gundongxinwen_hexunqiche_54 import Parserarticle_hexunqiche_list2
+
+class Luntan(BasesiteSpider):
+	name = 'liangdi_k_aiticle_gundongxinwen_hexunqiche_54'
+	start_urls = ['http://roll.hexun.com/?source=124']
+	parsers = [Parserarticle_hexunqiche_list2(),]
+	xTargets = [ 
+		{"xpath":"//ul[@class='ntb']/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

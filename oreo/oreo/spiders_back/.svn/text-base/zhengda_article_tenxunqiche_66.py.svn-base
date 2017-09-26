@@ -1,0 +1,17 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.zhengda_article_tenxunqiche_66 import Parserarticle_tenxunqiche_list114
+from oreo.parser.zhengda_article_tenxunqiche_66 import Parserarticle_tenxunqiche_item118
+from oreo.parser.zhengda_article_tenxunqiche_66 import Parserarticle_tenxunqiche_item119
+
+class Luntan(BasesiteSpider):
+	name = 'zhengda_article_tenxunqiche_66'
+	start_urls = ['http://auto.qq.com/a/20161102/004728.htm']
+	parsers = [Parserarticle_tenxunqiche_list114(),Parserarticle_tenxunqiche_item118(),Parserarticle_tenxunqiche_item119(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='body']//div[@class='newTxt']/h3","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//span[@id='spanNext']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

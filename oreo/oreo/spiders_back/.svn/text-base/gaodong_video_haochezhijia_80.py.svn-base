@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_video_haochezhijia_80 import Parserviedo_haochezhijia_list
+from oreo.parser.gaodong_video_haochezhijia_80 import Parserviedo_haochezhijia_item
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_video_haochezhijia_80'
+	start_urls = ['http://www.clxpw.cn/video/44-1048-1.html']
+	parsers = [Parserviedo_haochezhijia_list(),Parserviedo_haochezhijia_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='index_video_pic_box']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pages']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

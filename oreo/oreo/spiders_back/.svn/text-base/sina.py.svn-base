@@ -1,0 +1,39 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+sina 二手车问答爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.sina import ParserSinaList
+from oreo.parser.sina import ParserSinaQuestion
+from oreo.parser.sina import ParserSinaAnswer
+#from sina_item_urls import sina_item_url
+
+#class Sina(OnlineSpider):
+class Sina(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserSinaList(), ParserSinaQuestion(),ParserSinaAnswer()]
+
+  name = 'sina'
+  topic = 'sina'
+  allowed_domain = ['qa.auto.sina.com.cn']
+  #start_urls = sina_item_url
+  start_urls = [
+    'http://qa.auto.sina.com.cn/tags/newlist/二手车/10/',
+    'http://qa.auto.sina.com.cn/question/info/5946',
+    'http://qa.auto.sina.com.cn/tags/newlist/二手车/9/',
+    'http://qa.auto.sina.com.cn/tags/newlist/%E4%BA%8C%E6%89%8B/7/',
+    ]
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'sina_commodity_list'},
+    #商品页面
+    {'xpath':"//div[@class='b']//span//a[contains(@href,'/question/info')] | //dl[@class='i']//a[contains(@href,'question/info')]",'allow':(),'deny':(),'itemtype':'sina_question'},
+  ]
+  xListLink = [
+    {'xpath':"//div[@class='page']//a",'allow':(),'deny':(),'itemtype':'sina_question_list'},
+  ]

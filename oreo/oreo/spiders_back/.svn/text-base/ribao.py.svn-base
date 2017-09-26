@@ -1,0 +1,36 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+二手车之家日报爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.ribao import ParserRibaoItem
+from oreo.parser.ribao import ParserRibaoTopic
+
+#class Ribao(OnlineSpider):
+class Ribao(BasesiteSpider):
+  #在线爬虫配置
+  #parsers = [ParserGuaziSeries()]
+  parsers = [ParserRibaoItem()]
+  name = 'ribao'
+  topic = 'ribao'
+  #allowed_domain = ['bitauto.com']
+  #start_urls = guazi_item_url
+  start_urls = [ 
+    'http://club.autohome.com.cn/jingxuan'
+  ]
+  #fin = open('/data/spider_cluster_test/data_process/data/guazi_series_url','r')
+  #for url in fin:
+   # start_urls.append(url.strip())
+
+  xTargets = [
+    {'xpath':"//div[@class='choise-section']//a",'allow':(),'deny':(),'itemtype':'ribao_item'},
+    {'xpath':"//div[@class='pagearea']//a",'allow':(),'deny':(),'itemtype':'ribao_item'},
+    #{'xpath':"//div[@class='piclist interest-piclist']//a",'allow':(),'deny':(),'itemtype':'guazi_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+  ]

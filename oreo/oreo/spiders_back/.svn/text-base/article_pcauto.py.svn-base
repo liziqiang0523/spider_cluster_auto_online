@@ -1,0 +1,32 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+太平洋汽车文章抓取。
+
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.article_pcauto import ParserArticle_pcautoItem
+from oreo.parser.article_pcauto import ParserArticle_pcautoList
+
+class Luntan(BasesiteSpider):
+  max_request_num = 6000
+  parsers = [ParserArticle_pcautoItem(),ParserArticle_pcautoList()]
+  name = 'article_pcauto'
+  topic = 'article_pcauto'
+  #allowed_domain = ['bitauto.com']
+  start_urls = [ 
+    #'http://www.pcauto.com.cn/nation/gckx/'
+    #'http://www.pcauto.com.cn/nation/884/8844152.html'
+  ]
+
+  xTargets = [
+    {'xpath':"//p[@class='tit blue']//a",'allow':(),'deny':(),'itemtype':'article_pcauto_item'},
+    {'xpath':"//em[@id='JallpageBtm']/a",'allow':(),'deny':(),'itemtype':'article_pcauto_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+    {'xpath':"//div[@class='pcauto_page']//a",'allow':(),'deny':(),'itemtype':'article_pcauto_list'},
+  ]

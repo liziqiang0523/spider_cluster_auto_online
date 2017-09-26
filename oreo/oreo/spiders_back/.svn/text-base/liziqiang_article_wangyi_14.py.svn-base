@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liziqiang_article_wangyi_14 import Parserarticle_wangyi
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_article_wangyi_14'
+	start_urls = ['http://product.auto.163.com/series/article/18507.html#0008H31']
+	parsers = [Parserarticle_wangyi(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='article-card']/h4/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//td//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

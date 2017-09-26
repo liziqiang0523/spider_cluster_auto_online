@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_haochezhijia2_31'
+	start_urls = ['http://www.clxpw.cn/life/']
+	parsers = []
+	xTargets = [ 
+		{"xpath":"//div[@class='des']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pages']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

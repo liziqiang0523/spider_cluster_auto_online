@@ -1,0 +1,36 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+易车爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.niuche import ParserNiucheList
+from oreo.parser.niuche import ParserNiucheQuestion
+from oreo.parser.niuche import ParserNiucheAnswer
+#from niuche_item_urls import niuche_item_url
+
+#class Niuche(OnlineSpider):
+class Niuche(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserNiucheList(), ParserNiucheQuestion(),ParserNiucheAnswer()]
+
+  name = 'niuche'
+  topic = 'niuche'
+  allowed_domain = ['www.niuche.com']
+  #start_urls = niuche_item_url
+  start_urls = [
+    ]
+
+  xTargets = [
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'niuche_commodity_list'},
+    #问答页面
+    {'xpath':"//div[@class='ceng2']//a",'allow':(),'deny':(),'itemtype':'niuche_question'},
+  ]
+
+  xListLink = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    {'xpath':"//div[@id='pageInfo']/a",'allow':(),'deny':(),'itemtype':'niuche_question_list'},
+    ]

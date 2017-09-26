@@ -1,0 +1,19 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.hanwanhe_article_dagongqiche_47 import Parserarticle_dagongqiche_list67
+from oreo.parser.hanwanhe_article_dagongqiche_47 import Parserarticle_dagongqiche_item73
+from oreo.parser.hanwanhe_article_dagongqiche_47 import Parserarticle_dagongqiche_other_list88
+
+class Luntan(BasesiteSpider):
+	name = 'hanwanhe_article_dagongqiche_47'
+	start_urls = ['http://auto.takungpao.com/q/2016/1018/3381453.html']
+	parsers = [Parserarticle_dagongqiche_list67(),Parserarticle_dagongqiche_item73(),Parserarticle_dagongqiche_other_list88(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='listText fr_dib']/h1/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='displaypagenum']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='tpk_page clearfix']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='txtImgListeach current']/h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

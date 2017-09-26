@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.linyashan_aticle_qicheshenghuo_87 import Parserarticle_qicheshihuo_list163
+
+class Luntan(BasesiteSpider):
+	name = 'linyashan_aticle_qicheshenghuo_87'
+	start_urls = ['http://testdrive.autov.com.cn/abroad/']
+	parsers = [Parserarticle_qicheshihuo_list163(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='ulListITSO']//ul/li/i[1]/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='dPages']/a[@class='next']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

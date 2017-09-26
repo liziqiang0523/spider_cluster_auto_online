@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_article_58che_48 import Parserarticle_58che_list
+from oreo.parser.gaodong_article_58che_48 import Parserarticle_58che_item
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_58che_48'
+	start_urls = ['http://news.58che.com/guide/1595912.html']
+	parsers = [Parserarticle_58che_list(),Parserarticle_58che_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='zx-newsconbox mt20']/div/dl/dd/h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='page_num']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

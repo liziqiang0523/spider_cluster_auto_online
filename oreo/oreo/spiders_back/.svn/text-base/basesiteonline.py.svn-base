@@ -1,0 +1,77 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming
+'''
+  和scrapy示例的爬虫很像：发起抓取后理解解析新链接调度；同时在线解析出response中item。
+  用途：
+    1.用于测试url的解析和item的解析，此时没有调度，只对startup中url进行抓取和解析，验证想要的url没有全部解析出来，想要的item各字段有没有解析正确。当然，解析的url不会继续调度处理，解析出来的item也不会保存到数据库，page信息是会保存的（page-body保存到FS，page_item保存到mongo），因为我们抓下来的网页和浏览器中看到的不一定一样，供快速分析处理
+    2.对与少量的抓取任务，比如抓医院信息、医生信息，就没必要走kafka来调度了，轻便。没抓全的放到startup中再抓。当然，需要自己保存一个set来做重复抓取过滤，最终爬虫结束时把抓过的链接要全部记入log中，供检查是否抓全（有失败或没有回包的）
+  链接的解析、page和page_item的保存都交给父类basesite.BasesiteSpider, item解析部分交给basepaser的相应子类。继承和组合使得本基类很简单
+  实际爬虫（即子类）的写法和此前一模一样！只是多个开关字段is_test：是否测试用。True则实现用途1；False则实现用途2
+'''
+
+import sys, traceback, logging
+from oreo.spiders.basesite import BasesiteSpider
+from scrapy.http import Request
+
+class OnlineSpider(BasesiteSpider):
+  #开关字段：是否测试用。True则实现用途1；False则实现用途2
+  is_test = True
+  #下载虑重
+  urls_requested = set()
+  urls_suc = set()
+  urls_failed = set()
+
+  #覆盖父类的start_requests方法，避免走kafka的流程
+  def start_requests(self):
+    logging.info('初始start_urls调度...')
+    for url in self.start_urls:
+      yield self.make_requests_from_url(url)
+  
+  def parse(self, response):
+    if response.status >= 400 or response.status < 200:
+      logging.info('spider-%s:crawler failed! status:%d url:%s' % (self.name, response.status, response.url))
+      self.urls_failed.add(response.url)
+      return []
+    #保存网页
+    self.urls_suc.add(response.url)
+    page_item = self.save_page(response)
+    logging.debug('save page_item. page_item:%s' % page_item)
+    #解析网页获得item
+    for parser in self.parsers:
+      logging.debug('process with parser for table[%s]' % parser.table_name)
+      items = parser.process_page(page_item)
+      for item in items:
+        #存在相同item则更新，否则插入新item
+        parser.save_item(item)
+      logging.info('spider-%s: crawl url:%s  suc. get item num:%d ----------then extract link--------------' % (self.name, response.url, len(items)))
+    #解析出新链接并调度继续抓取处理
+    linkinfos = self.extract_links(response)
+    if self.is_test:
+      return []
+    #继续调度抓取
+    requests = []
+    for linkinfo in linkinfos:
+      url = linkinfo["url"]
+      if url in self.urls_requested:
+        logging.debug('url:%s has been requested' % url)
+        continue
+      self.urls_requested.add(url)
+      req = Request(url, dont_filter=True)
+      req.meta['no_proxy'] = self.no_proxy
+      for k,v in linkinfo.items():
+        req.meta[k] = v
+      requests.append(req)
+    logging.info('spider-%s: new request[%d] from url[%s]' % (self.name, len(requests), response.url))
+    return requests
+  
+  #统计输出抓成功的没有抓成功能的
+  def closed(self, reason):
+    logging.info('spider-%s is closing..... ' % self.name)
+    for url in self.urls_suc:
+      logging.info('suc-- %s' % url)
+    for url in self.urls_failed:
+      logging.info('failed-- %s' % url)
+    for url in self.urls_requested:
+      if url not in self.urls_suc and url not in self.urls_failed:
+        logging.info('nocall-- %s' % url)

@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liziqiang_k_article_pcauto_17 import Parserk_article_pcauto_list
+from oreo.parser.liziqiang_k_article_pcauto_17 import Parserk_article_pcauto_item
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_k_article_pcauto_17'
+	start_urls = ['http://www.pcauto.com.cn/nation/884/8842337.html']
+	parsers = [Parserk_article_pcauto_list(),Parserk_article_pcauto_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='tit']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pcauto_page']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

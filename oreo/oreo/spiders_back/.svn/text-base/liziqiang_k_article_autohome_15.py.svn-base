@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liziqiang_k_article_autohome_15 import Parserk_article_autohome_list
+from oreo.parser.liziqiang_k_article_autohome_15 import Parserk_article_autohome_item
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_k_article_autohome_15'
+	start_urls = ['http://www.autohome.com.cn/advice/201610/894697.html']
+	parsers = [Parserk_article_autohome_list(),Parserk_article_autohome_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='cont-info']//li/h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

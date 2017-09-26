@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.linyashan_article_yangshiwangqiche_60 import Parserarticle_yangshiwangqiche_dg_list
+from oreo.parser.linyashan_article_yangshiwangqiche_60 import Parserarticle_yangshiwangqiche_dg_item
+
+class Luntan(BasesiteSpider):
+	name = 'linyashan_article_yangshiwangqiche_60'
+	start_urls = ['http://auto.cntv.cn/contrast/index.shtml']
+	parsers = [Parserarticle_yangshiwangqiche_dg_list(),Parserarticle_yangshiwangqiche_dg_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='md_bd']//div[@class='text_box']//h4//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

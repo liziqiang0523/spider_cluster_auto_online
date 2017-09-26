@@ -1,0 +1,29 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+二手车之家论坛爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.luntan_pcauto import ParserLuntan_pcautoItem
+from oreo.parser.luntan_pcauto import ParserLuntan_pcautoList
+
+#class Pcauto(OnlineSpider):
+class Pcauto(BasesiteSpider):
+  parsers = [ParserLuntan_pcautoItem(),ParserLuntan_pcautoList()]
+  name = 'luntan_pcauto'
+  topic = 'luntan_pcauto'
+  #allowed_domain = ['bitauto.com']
+  start_urls = [ 
+    'http://bbs.pcauto.com.cn/topic-11672550.html?_kstrace_=t_13_11672550_bbs_2_lt-bbs_'
+  ]
+
+  xTargets = [
+    {'xpath':"//div[contains(@class,'paragraph')]//strong",'allow':(),'deny':(),'itemtype':'luntan_pcauto_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+    {'xpath':"//div[contains(@class,'pcauto_page')]//a",'allow':(),'deny':(),'itemtype':'guazi_item'},
+  ]

@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+
+class Luntan(BasesiteSpider):
+	max_request_num = 0
+	name = 'liziqiang_video_autohome_10'
+	start_urls = ['http://v.autohome.com.cn/general/0-4444-1']
+	parsers = []
+	xTargets = [ 
+		{"xpath":"//div[@class='video-item-tit']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page page-small']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

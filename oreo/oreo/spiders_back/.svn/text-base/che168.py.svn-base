@@ -1,0 +1,38 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+二手车之家爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.che168 import ParserChe168Item
+from oreo.parser.che168 import ParserChe168Item_business
+#from che168_item_urls import che168_item_url
+
+#class Che168(OnlineSpider):
+class Che168(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserChe168Item(),ParserChe168Item_business()]
+  name = 'che168'
+  topic = 'che168'
+  #allowed_domain = ['bitauto.com']
+  #start_urls = che168_item_url
+  start_urls = [
+    'http://www.che168.com/china/list/',
+    'http://hao.autohome.com.cn/6262107.html#pvareaid=100519#pos=1#page=1',
+    'http://www.che168.com/china/tesila/a0_0msdgscncgpiltocspexe4099a0/#pvareaid=100511',
+    ]
+
+  xTargets = [
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'che168_commodity_list'},
+    #汽车item
+    {'xpath':"//div[@class='all-source']//li//div[@class='title']/a",'allow':(),'deny':(),'itemtype':'che168_item'},
+    #感兴趣的车
+    #{'xpath':"//div[@class='piclist interest-piclist']//a",'allow':(),'deny':(),'itemtype':'che168_item'},
+    ]
+    #下一页--list页  
+  xListLink = [
+    {'xpath':"//div[@class='page']//a",'allow':(),'deny':(),'itemtype':'che168_item_list'},
+  ]

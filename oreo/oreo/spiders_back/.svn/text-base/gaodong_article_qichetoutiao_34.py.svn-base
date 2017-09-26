@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_article_qichetoutiao_34 import Parserarticle_qichetoutiao_list
+from oreo.parser.gaodong_article_qichetoutiao_34 import Parserarticle_qichetoutiao_item
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_qichetoutiao_34'
+	start_urls = ['http://www.chetoutiao.com/list.asp?id=7352']
+	parsers = [Parserarticle_qichetoutiao_list(),Parserarticle_qichetoutiao_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@id='listul']/div/div/h2/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='page']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

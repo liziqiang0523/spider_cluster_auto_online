@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_article_qichezhongguo_youhui_69 import Parserarticle_qichezhongguo_list
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_qichezhongguo_youhui_69'
+	start_urls = ['http://cheshi.qi-che.com/gedihangqing']
+	parsers = [Parserarticle_qichezhongguo_list(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='new']/div[@class='new_bbo']/dl/dt/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='list_pag']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

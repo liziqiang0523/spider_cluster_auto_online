@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.weishiwei_article_xinnengyuanqichewang_39 import Parserarticle_xinnengyuanqichewang_list
+from oreo.parser.weishiwei_article_xinnengyuanqichewang_39 import Parserarticle_xinnengyuanqichewang_item
+
+class Luntan(BasesiteSpider):
+	name = 'weishiwei_article_xinnengyuanqichewang_39'
+	start_urls = ['http://www.xnyauto.com/news/201610/18873.html']
+	parsers = [Parserarticle_xinnengyuanqichewang_list(),Parserarticle_xinnengyuanqichewang_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='newspage-box']/div[@class='news-left']//div[@class='news-lb']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='page']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

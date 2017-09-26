@@ -1,0 +1,28 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+唯品会爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.vip import ParserVipCommodity
+from starturls import jd_list
+
+class Vip(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ ParserVipCommodity() ]
+
+  name = 'vip'
+  topic = 'vip'
+  allowed_domain = ['vip.com']
+  start_urls = []
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'jd_commodity_list'},
+    #商品页面
+    #{'xpath':'//div[@class="grid"]/ul/li/div/div/a','allow':(r'http://product.suning.com/\d+/\d+.html'),'deny':(r'.*#.+'),'itemtype':'commodity'},
+  ]
+

@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.wudanyang_article_jinkouqichewang_35 import Parserarticle_jinkouqichewang_list
+from oreo.parser.wudanyang_article_jinkouqichewang_35 import Parserarticle_jinkouqichewang_item
+
+class Luntan(BasesiteSpider):
+	name = 'wudanyang_article_jinkouqichewang_35'
+	start_urls = ['http://www.at188.com/news/enterprise/20141218008749.shtml']
+	parsers = [Parserarticle_jinkouqichewang_list(),Parserarticle_jinkouqichewang_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='lft']//ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='newslist']/table//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

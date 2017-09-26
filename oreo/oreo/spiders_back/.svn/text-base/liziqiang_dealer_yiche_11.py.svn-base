@@ -1,0 +1,14 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liziqiang_dealer_yiche_11 import Parserdealer_yiche_list
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_dealer_yiche_11'
+	start_urls = ['http://dealergroup.bitauto.com/']
+	parsers = [Parserdealer_yiche_list(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='dealer_area_block']//dd/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

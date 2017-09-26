@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.linyashan_aticle_yangguangwangqiche_76 import Parserarticle_yangguangwangqiche_list
+from oreo.parser.linyashan_aticle_yangguangwangqiche_76 import Parserarticle_yangguangwangqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'linyashan_aticle_yangguangwangqiche_76'
+	start_urls = ['http://auto.cnr.cn/yzcshzy/nr03/20150908/t20150908_519806690.shtml']
+	parsers = [Parserarticle_yangguangwangqiche_list(),Parserarticle_yangguangwangqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='left620 left']//div/h4","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='left620 left']//div[12]//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

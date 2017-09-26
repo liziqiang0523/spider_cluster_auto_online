@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.linyashan_aticle_zhonghuawangqiche_77 import Parserarticle_zhonghuawangqiche_list
+from oreo.parser.linyashan_aticle_zhonghuawangqiche_77 import Parserarticle_zhonghuawangqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'linyashan_aticle_zhonghuawangqiche_77'
+	start_urls = ['http://auto.china.com/15yuanchuang/liebiao/11169899/20161102/30028405.html']
+	parsers = [Parserarticle_zhonghuawangqiche_list(),Parserarticle_zhonghuawangqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='item']//h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pages']//a[@class='nextPage']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

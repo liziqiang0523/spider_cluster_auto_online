@@ -1,0 +1,17 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_article_qichezhongguo_63 import Parserarticle_qichezhongguo_list108
+from oreo.parser.gaodong_article_qichezhongguo_63 import Parserarticle_qichezhongguo_item110
+from oreo.parser.gaodong_article_qichezhongguo_63 import Parserarticle_qichezhongguo_list155
+from oreo.parser.gaodong_article_qichezhongguo_63 import Parserarticle_qichezhongguo_list156
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_qichezhongguo_63'
+	start_urls = ['http://www.qi-che.com/pingce/meitipingce/201607201640026.html']
+	parsers = [Parserarticle_qichezhongguo_list108(),Parserarticle_qichezhongguo_item110(),Parserarticle_qichezhongguo_list155(),Parserarticle_qichezhongguo_list156(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='weibok']/ul[@class='u']/li/h2/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

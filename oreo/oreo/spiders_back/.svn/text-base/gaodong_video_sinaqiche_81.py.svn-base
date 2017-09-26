@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_video_sinaqiche_81 import Parserviedo_sinaqiche_list
+from oreo.parser.gaodong_video_sinaqiche_81 import Parserviedo_sinaqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_video_sinaqiche_81'
+	start_urls = ['http://auto.sina.com.cn/video/zz/2016-11-02/detail-ifxxmyuk5552447.shtml']
+	parsers = [Parserviedo_sinaqiche_list(),Parserviedo_sinaqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='s-left fL clearfix']/h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pagination']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

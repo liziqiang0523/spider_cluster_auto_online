@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.huliren_article_fenghuangwang_57 import Parserarticle_fenghuangwang_list
+from oreo.parser.huliren_article_fenghuangwang_57 import Parserarticle_fenghuangwang_item
+
+class Luntan(BasesiteSpider):
+	name = 'huliren_article_fenghuangwang_57'
+	start_urls = ['http://auto.ifeng.com/quanmeiti/20161031/1071757.shtml']
+	parsers = [Parserarticle_fenghuangwang_list(),Parserarticle_fenghuangwang_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='imgtit']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='v2c-page']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liziqiang_k_article_315che_18 import Parserk_article_315che_list
+from oreo.parser.liziqiang_k_article_315che_18 import Parserk_article_315che_item
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_k_article_315che_18'
+	start_urls = ['http://inf.315che.com/n/2016_03/673350/']
+	parsers = [Parserk_article_315che_list(),Parserk_article_315che_item(),]
+	xTargets = [ 
+		{"xpath":"//ul[@id='articleNewsList']//li","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pages']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

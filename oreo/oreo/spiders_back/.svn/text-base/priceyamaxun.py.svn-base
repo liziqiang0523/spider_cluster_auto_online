@@ -1,0 +1,45 @@
+# coding=utf-8
+#author:shiyuming
+'''
+  suning价格抓取
+'''
+
+import sys, traceback, logging,re, json, datetime
+from oreo.spiders.basesite import BasesiteSpider
+from basesiteonline import OnlineSpider
+from oreo.facade import facade
+from scrapy.selector import Selector
+
+class PriceYamaxun(OnlineSpider):
+#class PriceYamaxun(BasesiteSpider):
+  name = "priceyamaxun"
+  topic = "priceyamaxun"
+  start_urls = [
+    #
+    'http://www.amazon.cn/gp/product/B00DMS8KPO',
+    'http://www.amazon.cn/Panasonic-%E6%9D%BE%E4%B8%8B-7-0KG%E6%BB%9A%E7%AD%92%E6%B4%97%E8%A1%A3%E6%9C%BAXQG70-V7255/dp/B0109QM0V6',
+    ]
+
+  #解析json
+  def parse(self, response):
+    requests = []
+    '''
+    if self.scheduler == None:
+      self.scheduler = RequestScheduler(topic = self.topic, no_proxy = self.no_proxy, max_request_num = self.max_request_num)
+    requests = self.scheduler.process(response = response)
+    if response.status != 200:
+      return requests
+    '''
+    com_id = pid + "-" + sid
+    cur_time = datetime.datetime.now()
+    date = '%04d%02d%02d' % (cur_time.year, cur_time.month, cur_time.day)
+    hxs = Selector(response)
+    results = hxs.xpath('//span[@id="priceblock_ourprice"]//text()|//span[@class="a-color-price"]//text()').re(r'(\d+\.\d*)')
+    if results != None and len(results) >= 1:
+      price = price.group(1)
+      item = {'com_id':com_id, 'id':com_id+'_'+date, 'price':price, 'date':date }
+      print item
+      #save price
+      facade.save_priceyamaxun(item)
+
+    return requests

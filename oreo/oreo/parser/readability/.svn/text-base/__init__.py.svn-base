@@ -1,0 +1,1 @@
+from .bireadability import Document

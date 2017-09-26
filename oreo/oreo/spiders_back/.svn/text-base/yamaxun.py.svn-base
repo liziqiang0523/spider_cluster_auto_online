@@ -1,0 +1,30 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+亚马逊爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.yamaxun import ParserYamaxunList
+from oreo.parser.yamaxun import ParserYamaxunCommodity
+from starturls import jd_list
+
+class Yamaxun(BasesiteSpider):
+#class Yamaxun(OnlineSpider):
+  #在线爬虫配置
+  parsers = [ParserYamaxunList(), ParserYamaxunCommodity()]
+
+  name = 'yamaxun'
+  topic = 'yamaxun'
+  allowed_domain = ['amazon.cn']
+  start_urls = ['http://www.amazon.cn/Apple-iPhone-6s-4G%E6%99%BA%E8%83%BD%E6%89%8B%E6%9C%BA/dp/B015NWIMQS/ref=sr_1_1?s=electronics&ie=UTF8&qid=1445930883&sr=1-1']
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+   # {'xpath':"//div[contains(@class,'pagnHy')]//a",'allow':(r''),'deny':(),'itemtype':'commodity_list'},
+    #商品页面
+   # {'xpath':"//a[contains(@class,'a-link-normal s-access-detail-page  a-text-normal')]/@href",'allow':(r''),'deny':(r''),'itemtype':'commodity'},
+  ]
+

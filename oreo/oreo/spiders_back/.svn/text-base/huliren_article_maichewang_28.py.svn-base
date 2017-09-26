@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.huliren_article_maichewang_28 import Parserariticle_maichewang_list
+from oreo.parser.huliren_article_maichewang_28 import Parserariticle_maichewang_item
+
+class Luntan(BasesiteSpider):
+	name = 'huliren_article_maichewang_28'
+	start_urls = ['http://www.maiche.com/news/detail/494023.html']
+	parsers = [Parserariticle_maichewang_list(),Parserariticle_maichewang_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='paging']//ul//li","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class = 'content']//div[@class='list']//ul//li//div[@class = 'title']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

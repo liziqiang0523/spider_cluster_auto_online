@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.linyashan_aticle_wangshangcheshi_29 import Parserarticle_wangshangcheshi_list40
+from oreo.parser.linyashan_aticle_wangshangcheshi_29 import Parserarticle_wangshangcheshi_item42
+
+class Luntan(BasesiteSpider):
+	name = 'linyashan_aticle_wangshangcheshi_29'
+	start_urls = ['http://news.cheshi.com/20161024/1975873.shtml']
+	parsers = [Parserarticle_wangshangcheshi_list40(),Parserarticle_wangshangcheshi_item42(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='new_listpleft l']//div[@class='listboxp bor']/ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"div[@class='page_1']//a[11]","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

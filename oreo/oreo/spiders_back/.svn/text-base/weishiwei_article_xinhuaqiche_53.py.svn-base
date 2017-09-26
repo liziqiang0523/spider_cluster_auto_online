@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.weishiwei_article_xinhuaqiche_53 import Parserarticle_xinhuaqiche_xc_list
+from oreo.parser.weishiwei_article_xinhuaqiche_53 import Parserarticle_xinhuaqiche_xc_item
+from oreo.parser.weishiwei_article_xinhuaqiche_53 import Parserarticle_renmingwangqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'weishiwei_article_xinhuaqiche_53'
+	start_urls = ['http://news.xinhuanet.com/auto/2016-08/11/c_129221129.htm']
+	parsers = [Parserarticle_xinhuaqiche_xc_list(),Parserarticle_xinhuaqiche_xc_item(),Parserarticle_renmingwangqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//ul[@class='dataList']//li[@class='clearfix']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

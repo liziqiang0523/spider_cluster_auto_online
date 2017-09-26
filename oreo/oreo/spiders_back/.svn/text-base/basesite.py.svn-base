@@ -1,0 +1,189 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming
+'''
+  定向爬虫基类
+logging.basicConfig(level = logging.INFO, 
+  format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s', 
+  datefmt = '%a, %d %b %Y %H:%M:%S',
+  filename = '%s/%s' % (settings.LOG_PATH, settings.LOG_SPIDER),
+  filemode = 'a')
+'''
+
+import sys, re,traceback, logging, math, time, datetime
+#from requestscheduler import RequestScheduler
+from scrapy.spiders import Spider
+from scrapy.http import Request
+#from scrapy.baseparser import BaseParser
+from oreo.facade import facade
+from scrapy.linkextractors import LinkExtractor
+from oreo import settings
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+class BasesiteSpider(Spider):
+  
+  #爬虫的唯一id号，格式：20151109_16_01_59 有这个id，当爬虫的name相同时，能区别出实例
+  mid = "mid"
+  #以dianping网为例
+  name = ""
+  allowed_domain = []
+  #其实抓取url 通常是列表页第一页 eg:http://www.dianping.com/search/category/2/0/p1
+  start_urls = []
+  #能够指定解析规则的start_urls
+  start_urls_new = []
+  #目标网页的所在区域和解析规则 eg： [{'xpath':'//li[contains(@class,"shopname")]/a[1]','allow':r'.*dianping.com/shop/\d+.*','deny':()}]
+  xTargets = []
+  #列表网页的所在区域和解析规则 eg:  [{'xpath':'//div[contains(@id,"searchList")]/div[contains(@class,"Pages")]','allow':(),'deny':()}]
+  xListLink = []
+  #实现指定目标网页用指定规则抽取和解析：default_rules是默认解析链接和item的规则，内容是xpath和parsers，xpath格式和xTargets是一样的，但可以通过字段rule指定不走默认规则，则走自定义规则 例如：{'xpath':'','allow':(), 'deny':(), 'rule':'respective_rules_key'}, 则对该规则发掘出来的新链接会应用respective_rules[respective_rules_key]来处理，不走default_rules. respective_rules[key]指定了链接的发掘规则和parser处理实例，且respective_rule_key会作为task的一个字段"rule"跟随始终. 'parsers':是解析器列表
+  default_rules = {"parsers":[], "xpaths":[]}
+  #例如 'rule_key':[{'xpath':'','allow':(), 'deny':(), 'rule':''}]
+  respective_rules = {"rule_key":{"parsers":[], "xpaths":[]}}
+  #列表页至少要挖出的item数量
+  min_itemnum = 1 
+  min_listnum = 1 
+  #是否需要代理 1-不需要代理 0-需要代理
+  no_proxy = 0
+  #Request调度器
+  topic = ''
+  scheduler = None
+  #最大调度数量 用于避免一个爬虫持续工作太久而导致内存占用量过大
+  max_request_num = settings.MAX_REQ_NUM
+  #是否执行跳转抓取。通常是允许的（False）
+  dont_redirect = False
+  #实际爬虫相应的解析器
+  parsers = []
+  #是否保存网f页
+  #drop_page = False
+  drop_page = settings.DROP_PAGE
+
+  #初始进行调度 避免种子也被屏蔽而导致爬虫启动不起来
+  def start_requests(self):
+    #mid赋值
+    self.mid = datetime.datetime.now().strftime("%Y%m%d_%H_%M_%S")
+    for url in self.start_urls:
+      req = self.make_requests_from_url(url)
+      req.meta['no_proxy'] = self.no_proxy
+      yield req
+    for url in self.start_urls_new:
+      req = self.make_requests_from_url(url['url'])
+      req.meta['no_proxy'] = self.no_proxy
+      req.meta['rule'] = url['rule']
+      yield req
+    logging.info('mid[%s]初始调度...' % self.mid)
+    #初始调度
+    for task in facade.get_task(self.name , self.max_request_num):
+      domain = task['url'].split('//')[-1].split('/')[0]
+      if len(self.allowed_domain) > 0 and domain not in self.allowed_domain:
+        facade.delete_domain_no_match(task['url'])
+        logging.info('domain not in allowed_domain and delete it from linkbase.url:%s' % task['url'])
+        continue
+      #脏url过滤
+      req = Request(task['url'], dont_filter=True)
+      req.meta['no_proxy'] = self.no_proxy
+      for k,v in task.items():
+        req.meta[k] = v
+      yield req
+  
+  def parse(self, response):
+    #补充Request  
+    requests, linkinfos, dups = [], [], set()
+    #无效下载 直接返回补充的url 而不进行保存的解析url
+    if response.status >= 400 or response.status < 200:
+      proxy = response.meta['proxy'] if 'proxy' in response.meta else ''
+      task_url = response.meta['url'] if 'url' in response.meta else 'nourl'
+      logging.warning("crawl failed. url[%s] task-url[%s] status[%d] proxy:[%s]" % (response.url, task_url, response.status, proxy))
+      return requests
+    logging.info('成功获得response. status=[%d]' % response.status)
+    #保存网页
+    page_item = self.save_page(response)
+    if page_item is None:
+      return requests
+
+    #从response中解析出新的链接并保存到linkbase、交给kafka做调度
+    linkinfos = self.extract_links(response, dups)
+    #在线解析网页获得item：逐个调用parser解析，这些定向parser需要自己判断一下适不适合解析当前网页(domain)
+    for parser in self.parsers:
+      items = parser.process_page(page_item, html_body = page_item['html_body'] if 'html_body' in page_item else None, page_url = response.request.url)
+      logging.info('1个parser解析url:%s 完成，获得item数量 %d ----------' % (response.url, len(items)))
+
+    #以上为兼容之前的link挖掘规则和item解析规则，以下是为指定的网页运用指定的规则
+    rule_key = response.request.meta.get('rule', None)
+    if rule_key is None or len(rule_key) < 1:
+      for rule in self.default_rules['xpaths']:
+        logging.debug('走默认的rule:%s' % rule)
+        linkinfos.extend(self.extract_links_withrule(response, dups, rule))
+      for parser in self.default_rules['parsers']:
+        items = parser.process_page(page_item, html_body = page_item['html_body'] if 'html_body' in page_item else None, page_url = response.request.url)
+        logging.info('1个parser解析url:%s 完成，获得item数量 %d ----------' % (response.url, len(items)))
+        linkinfos.extend(parser.extract_links(page_item.get('html_body', None), response.request.url))
+    else:
+      #这里 如果指定了rule却忘记指定rule里的parsers，会报堆栈错误，必须处理
+      for rule in self.respective_rules[rule_key]['xpaths']:
+        logging.debug('走指定的rule:%s' % rule)
+        linkinfos.extend(self.extract_links_withrule(response, dups, rule))
+      for parser in self.respective_rules[rule_key]['parsers']:
+        items = parser.process_page(page_item, html_body = page_item['html_body'] if 'html_body' in page_item else None, page_url = response.request.url)
+        logging.info('1个parser解析url:%s 完成，获得item数量 %d ----------' % (response.url, len(items)))
+        linkinfos.extend(parser.extract_links(page_item.get('html_body', None), response.request.url))
+
+    facade.save_links(linkinfos = linkinfos, from_url = response.url, topic = self.name)
+
+    #调度
+    return requests
+
+  #保存网页 -- page-body保存在FS中，结构化信息保存入mongo
+  def save_page(self, response):
+    body = ""
+    try:
+      body = response.body_as_unicode().encode('utf-8')
+      logging.debug("通过body_as_unicode()获得html-body . " )
+    except Exception,e:
+      logging.warning('通过body_as_unicode()获得html-body失败 ')
+      return  None
+    #meta中的信息是创建Request的时设置的
+    page_item = response.meta
+    page_item['url'] = response.url
+    page_item['status'] = response.status
+    page_item['spider_name'] = self.name
+    page_item['ref_url'] = response.request.meta.get('from_url', '')
+    facade.save_page(page_item, body, drop_page = self.drop_page)
+    #避免将page本身保存到了数据库
+    page_item['html_body'] = body
+    return page_item
+    
+  #按规则发掘链接
+  def extract_links(self, response, dups):
+    #用target页的规则挖需要解析url
+    linkinfos = []
+    #为了兼容以前的爬虫：不区分list页和item页，都全部应用规则
+    for p in self.xTargets:
+      linkinfos.extend(self.extract_links_withrule(response, dups, p))
+    for p in self.xListLink:
+      linkinfos.extends(self.extract_links_withrule(response, dups, p))
+    #按照task中的设定用指定的规则解析页面
+
+    return linkinfos
+
+  #使用指定的rule对response进行解析 rule={'xpath':'','allow':(),'deny':()}
+  def extract_links_withrule(self, response, dups, rule):
+    logging.debug('执行extract-link. rule:%s' % rule)
+    linkinfos = []
+    if rule.get('xpath', None) is None or len(rule.get('xpath')) < 1:
+      logging.debug("rule没有xpath，不执行具体的解析")
+      return linkinfos
+    sgml = LinkExtractor(allow_domains=self.allowed_domain, restrict_xpaths = (rule['xpath']), allow=rule['allow'], deny=rule['deny'],tags=('a'))
+    links = sgml.extract_links(response)
+    logging.info('挖出item-url数量[%d] url[%s] xpath:%s ' % (len(links), response.url, rule['xpath']))
+    for link in links:
+      if link.url in dups: continue
+      dups.add(link.url)
+      linkinfo = {'url':link.url, 'from_url':response.url, 'spider_name':self.name, 'status':0, 'schedule_cnt':0, 'failed_cnt':0, 'in_time':math.floor(time.time()), 'update_time':math.floor(time.time()), 'dont_redirect':self.dont_redirect}
+      if rule.get('rule', None) is not None:
+        linkinfo['rule'] = rule.get('rule')
+      linkinfos.append(linkinfo)
+      logging.debug('target link:%s from_url:%s' % (link.url, response.url))
+    logging.debug('[%d]个targetLink extract from url:%s' % (len(linkinfos), response.url))
+    return linkinfos

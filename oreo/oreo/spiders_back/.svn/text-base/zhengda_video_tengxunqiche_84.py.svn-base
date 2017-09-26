@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.zhengda_video_tengxunqiche_84 import Parservideo_tenxunqiche_list149
+from oreo.parser.zhengda_video_tengxunqiche_84 import Parservideo_tenxunqiche_item153
+
+class Luntan(BasesiteSpider):
+	name = 'zhengda_video_tengxunqiche_84'
+	start_urls = ['http://v.qq.com/x/cover/xk74a86g5uk1tk5.html?vid=k03386jkuzl']
+	parsers = [Parservideo_tenxunqiche_list149(),Parservideo_tenxunqiche_item153(),]
+	xTargets = [ 
+		{"xpath":"//ul[@class='figures_list']/li[@class='list_item']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.gaodong_article_xinlangqiche_41 import Parserarticle_xinlangqiche_list
+from oreo.parser.gaodong_article_xinlangqiche_41 import Parserarticle_sinaqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'gaodong_article_xinlangqiche_41'
+	start_urls = ['http://auto.sina.com.cn/newcar/x/2016-11-02/detail-ifxxmyuk5593099.shtml']
+	parsers = [Parserarticle_xinlangqiche_list(),Parserarticle_sinaqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//ul[@class='J-news-moudle']/li/div[@class='info']/h4/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='ft J-loadmore']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

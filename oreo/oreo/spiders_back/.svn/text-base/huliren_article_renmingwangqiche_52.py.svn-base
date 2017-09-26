@@ -1,0 +1,17 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.huliren_article_renmingwangqiche_52 import Parserarticle_renmingwangqiche
+from oreo.parser.huliren_article_renmingwangqiche_52 import Parserarticle_renmingwangqiche_item
+
+class Luntan(BasesiteSpider):
+	name = 'huliren_article_renmingwangqiche_52'
+	start_urls = ['http://auto.people.com.cn/n1/2016/1017/c1005-28784437.html']
+	parsers = [Parserarticle_renmingwangqiche(),Parserarticle_renmingwangqiche_item(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='w980 o_h']//dt","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='center ej_page']","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='zdfy clearfix']","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

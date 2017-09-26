@@ -1,0 +1,146 @@
+# coding=utf-8
+#author:shiyuming
+'''
+  生成列表页的所有页数
+  通过抓取列表页的第一页，解析获得页数，按照固定的下一页模板生成所有列表页
+'''
+
+import sys, traceback, logging,re, json, datetime
+from oreo.spiders.basesite import BasesiteSpider
+from basesiteonline import OnlineSpider
+from oreo.facade import facade
+from scrapy.selector import Selector
+from scrapy.linkextractors import LinkExtractor
+
+#获取种子页url
+class Seed(OnlineSpider):
+  name = "seed"
+  start_urls = [
+    #'http://www.womai.com/index-0-0.htm',
+    #'http://www.suning.com/',
+    #'http://www.yhd.com/?union_ref=7&cp=0',
+    'http://market.yhd.com/?tc=0.0.12.2704_15986209_2.10&tp=52.24729.16.0.2.L3j0K1H-10-3F7wN',
+    ]
+
+  #初始进行调度 避免种子也被屏蔽而导致爬虫启动不起来
+  def start_requests(self):
+    for url in self.start_urls:
+      yield self.make_requests_from_url(url)
+    #有些网站 如yhd，首页中的各分类url是js加载的，所有第一次抓取得到一批list的种子页，第二次对这些种子页再抓取所有的子分类的list种子页
+    #除这些情况外，都是不需要执行的
+    file_seeds = '/data/spider_test/spider_cluster/oreo/log/start_urls_yhd'
+    urls = set(url.strip() for url in open(file_seeds))
+    print '调度批量的种子页：%d' % len(urls)
+    for url in urls:
+      yield self.make_requests_from_url(url)
+
+  #解析
+  def parse(self, response):
+    if response.status != 200:
+      return []
+    #womai网的种子页
+    #self.parse_seed(response, xpath = "//a[contains(@href, '/Sort-')]", file_out = "/data/spider_test/spider_cluster/oreo/log/start_urls_womai")
+    #suning的种子页
+    #self.parse_seed(response, xpath = "//a[contains(@href, 'list.suning.com')]", file_out = "/data/spider_test/spider_cluster/oreo/log/start_urls_suning")
+    #yhd
+    self.parse_seed(response, xpath = "//a", file_out = "/data/spider_test/spider_cluster/oreo/log/start_urls_yhd", allow = (r'list.yhd.com/'))
+    return []
+
+  def parse_seed(self, response, xpath = None, file_out = None, allow = (), deny = ()):
+    fout = open(file_out, 'a')
+    sgml = LinkExtractor(allow_domains=[], restrict_xpaths = (xpath),allow=allow, deny=deny, tags=('a'))
+    links = sgml.extract_links(response)
+    for link in links:
+      fout.write("%s\n" % link.url.strip())
+    fout.close()
+    print 'get links:%d url:%s' % (len(links), response.url)
+    #函数测试时返回空
+    return []
+
+#获取列表种子页的所有list页面url
+class List(OnlineSpider):
+  name = "list"
+  file_seed = '/data/spider_test/spider_cluster/oreo/log/start_urls_womai'
+  file_list = '/data/spider_test/spider_cluster/oreo/log/listurl_womai'
+
+  #初始调度：抓取seed爬虫解析到的所有的种子页
+  def start_requests(self):
+    #生成requests
+    list_seeds = set([url.strip() for url in open(self.file_seed)])
+    requests = [self.make_requests_from_url(url) for url in list_seeds]
+    for req in requests:
+      yield req
+
+  #解析
+  def parse(self, response):
+    if response.status != 200:
+      return []
+
+    #对每个列表的起始页，抓取并解析出最大页面数，按照list的模板生成每一页的url
+    #self.parse_suninglist(response, file_out = self.file_list)
+    self.parse_womailist(response, file_out = self.file_list)
+
+  #我买网的解析： 获得所有的list页面
+  def parse_womailist(self, response, file_out = None):
+    fout = open(file_out, 'a')
+    list_format = 'http://www.womai.com/ProductList.htm?id=%s&Cid=%s&&mid=0&page=%d'
+    url = response.url
+    cid = re.search(r'Sort-0-(\d+).htm', url).group(1)
+    hxs = Selector(response)
+    page_num = hxs.xpath('//div[@class="order_page"]/span[2]//text()').extract()[0]
+    print 'get_page_num. url:%s  page_num:%s' % (response.url, page_num)
+    page_num = int(page_num)
+    for idx in range(1, page_num+1):
+      list_new = list_format % (cid, cid, idx)
+      fout.write('%s\n' % list_new)
+      print list_new
+    fout.close()
+    return []
+
+  #suning
+  def parse_suning_listseed(self, response, file_out = None):
+    fout = open(file_out, 'a')
+    xpath = "//a[contains(@href, 'list.suning.com')]"
+    sgml = LinkExtractor(allow_domains=['suning.com'], restrict_xpaths = (xpath),allow=(),deny=(),tags=('a'))
+    links = sgml.extract_links(response)
+    print 'get links:%d url:%s' % (len(links), response.url)
+    for link in links:
+      print link.url
+      fout.write("%s\n" % link.url)
+    fout.close()
+    #函数测试时返回空
+    return []
+
+  #的解析： 获得所有的list页面
+  def parse_suninglist(self, response, file_out = None):
+    fout = open(file_out, 'a')
+    list_format = 'http://list.suning.com/%s-%s-%d.html'
+    url = response.url
+    results = re.search(r'list.suning.com/(\d+)-(\d+)-.*.html', url)
+    cid1 = results.group(1)
+    cid2 = results.group(2)
+    hxs = Selector(response)
+    page_num = hxs.xpath("//i[@id='pageTotal']/text()").extract()[0]
+    print 'get_page_num. url:%s  page_num:%s' % (response.url, page_num)
+    page_num = int(page_num)
+    for idx in range(0, page_num+1):
+      list_new = list_format % (cid1, cid2, idx)
+      fout.write('%s\n' % list_new)
+      print list_new
+    fout.close()
+
+  #我买网的起始页获取
+  def parse_womai_listseed(self, response, file_out = None):
+    fout = open(file_out, 'a')
+    xpath = "//a[contains(@href, '/Sort-')]"
+    sgml = LinkExtractor(allow_domains=['womai.com'], restrict_xpaths = (xpath),allow=(),deny=(),tags=('a'))
+    links = sgml.extract_links(response)
+    print 'get links:%d url:%s' % (len(links), response.url)
+    for link in links:
+      print link.url
+      fout.write("%s\n" % link.url)
+    fout.close()
+    #函数测试时返回空
+    return []
+
+

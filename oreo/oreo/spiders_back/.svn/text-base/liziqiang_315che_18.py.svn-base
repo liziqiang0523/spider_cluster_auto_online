@@ -1,0 +1,15 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liziqiang_315che_18 import Parserk_article_315che_list
+
+class Luntan(BasesiteSpider):
+	name = 'liziqiang_315che_18'
+	start_urls = ['http://auto.315che.com/baoshijiecajun/articles.htm']
+	parsers = [Parserk_article_315che_list(),]
+	xTargets = [ 
+		{"xpath":"//ul[@id='articleNewsList']//li","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pages']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

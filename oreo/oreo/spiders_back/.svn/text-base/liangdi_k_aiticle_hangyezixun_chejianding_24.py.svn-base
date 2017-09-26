@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.liangdi_k_aiticle_hangyezixun_chejianding_24 import Parserarticle_chejianding_list23
+from oreo.parser.liangdi_k_aiticle_hangyezixun_chejianding_24 import Parserarticle_chejianding_item32
+
+class Luntan(BasesiteSpider):
+	name = 'liangdi_k_aiticle_hangyezixun_chejianding_24'
+	start_urls = ['https://www.chejianding.com/html/carInfo1.jsp']
+	parsers = [Parserarticle_chejianding_list23(),Parserarticle_chejianding_item32(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='container car_info']/dl/dd/h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='green-black']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

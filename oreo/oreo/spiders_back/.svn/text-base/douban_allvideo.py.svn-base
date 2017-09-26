@@ -1,0 +1,78 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:shiyuming
+'''
+抓豆瓣所有的电影
+入口是：
+    https://movie.douban.com/tag/
+    这里有所有的tag，进入每个tag抓列表页和下一页
+    详情页使用详情页的解析，列表页使用列表页的解析
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.douban_video import DoubanVideoItem
+from oreo.parser.douban_video import VideoSearchtop
+from oreo.parser.douban_video import VideoTypetop
+from oreo.parser.douban_video import VideoJson
+from oreo.parser.douban_video import ReviewListItem
+from oreo.parser.douban_video import ReviewItem
+
+class DoubanAllVideo(BasesiteSpider):
+    name = 'doubanallvideo'
+    start_urls_new = [{'url':'https://movie.douban.com/review/8104400/', 'rule':'reviewitem'}] #[ {'url':'https://movie.douban.com/subject/26280528/reviews', 'rule':'reviewlist'} ] #[{'url':'https://movie.douban.com/j/subject_abstract?subject_id=26685451', 'rule':'jsonvideo'}] #[{'url':'https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0', 'rule':'jsonsearchtop'}] #[{'url':'https://movie.douban.com/subject/26280528/', 'rule':'videoitem'}] #[{'url':'https://movie.douban.com/tag/%E5%96%9C%E5%89%A7', 'rule':'listitem'}] #['https://movie.douban.com/tag/']
+    #元素: {'xpath':'','allow':(), 'deny':(), 'rule':'respective_rules_key'},
+    default_rules = {
+      "parsers":[],
+      #tag列表页的每一个tag页的video列表
+      "xpaths":[{ 'xpath':"//div[@id='content']//table[@class='tagCol']//td",'allow':(), 'deny':(), 'rule':'listitem' }],
+    }
+    #'rule_key':{'xpath':'','allow':(), 'deny':(), 'rule':'', 'parsers':[]}
+    respective_rules = {
+      'listitem':{
+        "parsers":[],
+        "xpaths":[
+          #详情页视频链接
+          {'xpath':"//div[@id='content']//table//td/a",'allow':(), 'deny':(), 'rule':'videoitem', 'comment':'videoitem in list'},
+          #列表页的下一页
+          {'xpath':"//div[@class='paginator']",'allow':(), 'deny':(), 'rule':'listitem', 'comment':'next page of list-url'}
+        ]
+      }, 
+      'videoitem':{
+        'parsers':[DoubanVideoItem()],
+        "xpaths":[
+          #视频详情的相关视频
+          {'xpath':"//div[@id='recommendations']//dd",'allow':(), 'deny':(), 'rule':'videoitem', 'comment':'related video item'},
+          ]
+      },
+      #json的解析 直接保存json结构化数据
+      'jsonsearchtop':{
+        'parsers' : [VideoSearchtop()],
+        #只有解析器，没有发掘新url的规则
+        "xpaths":[
+        ]
+      },
+      'jsontypetop':{
+        'parsers' : [VideoTypetop()],
+        "xpaths":[],
+      },
+      'jsonvideo':{
+        'parsers' : [ VideoJson() ],
+        "xpaths":[],
+      },
+      #评论列表
+      'reviewlist':{
+        'parsers':[ ReviewListItem()],
+        "xpaths":[
+          #评论的下一页
+          {'xpath':"//div[@id='content']//div[@class='paginator']", 'allow':(), 'deny':(), 'rule':'reviewlist', 'comment':'next page of review' },
+          #评论item列表
+          {'xpath':"//div[@typeof='v:Review']//h3", 'allow':(), 'deny':(), 'rule':'reviewitem', 'comment':'detail of reviewitem'}
+        ]
+      },
+      #评论详情 评论的评论暂且不要
+      'reviewitem':{
+        'parsers':[ReviewItem()],
+        "xpaths":[],
+      },
+    }
+

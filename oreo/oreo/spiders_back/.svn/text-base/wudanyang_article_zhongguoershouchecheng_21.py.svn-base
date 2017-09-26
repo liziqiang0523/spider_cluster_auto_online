@@ -1,0 +1,19 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.wudanyang_article_zhongguoershouchecheng_21 import Parserarticle_zhongguoershouchecheng_list
+from oreo.parser.wudanyang_article_zhongguoershouchecheng_21 import Parserarticle_zhongguoershouchecheng_item
+from oreo.parser.wudanyang_article_zhongguoershouchecheng_21 import Parserarticle_zhongguoershouchecheng_sidebar_list
+
+class Luntan(BasesiteSpider):
+	name = 'wudanyang_article_zhongguoershouchecheng_21'
+	start_urls = ['http://news.cn2che.com/html/2016/0905/news_99458.html']
+	parsers = [Parserarticle_zhongguoershouchecheng_list(),Parserarticle_zhongguoershouchecheng_item(),Parserarticle_zhongguoershouchecheng_sidebar_list(),]
+	xTargets = [ 
+		{"xpath":"//div[@class='tonglang']//h2/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"/html/body/div[4]/div[2]/div[1]/dl/dd/h2/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"/html/body/div[4]/div[2]//div//div[@class='Page']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='RsideBar']//div[@class='list']//ul/li/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

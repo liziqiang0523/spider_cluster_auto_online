@@ -1,0 +1,43 @@
+# coding=utf-8
+#author:shiyuming
+'''
+  suning价格抓取
+'''
+
+import sys, traceback, logging,re, json, datetime
+from oreo.spiders.basesite import BasesiteSpider
+from basesiteonline import OnlineSpider
+from oreo.facade import facade
+
+#class PriceSuning(OnlineSpider):
+class PriceSuning(BasesiteSpider):
+  name = "pricesuning"
+  topic = 'pricesuning'
+  allowed_domain = []
+  xTargets = [
+    ]
+  start_urls = [
+    #'http://www.suning.com/emall/psl_10052_10051_000000000135514312_9017_10106_FourPage.showShopList_.html?callback=FourPage.showShopList',
+    #'http://www.suning.com/emall/psl_10052_10051_000000000125008426_9017_10106_FourPage.showShopList_.html?callback=FourPage.showShopList',
+    ]
+
+  #解析json
+  def parse(self, response):
+    if self.scheduler == None:
+      self.scheduler = RequestScheduler(topic = self.topic, no_proxy = self.no_proxy, max_request_num = self.max_request_num)
+    requests = self.scheduler.process(response = response)
+    if response.status != 200:
+      return requests
+    body = response.body_as_unicode().encode('utf-8')
+    com_id = re.search(r'psl_10052_10051_000000000(\d+)', response.url).group(1)
+    cur_time = datetime.datetime.now()
+    date = '%04d%02d%02d' % (cur_time.year, cur_time.month, cur_time.day)
+    if body != None:
+      body_real = body.split('FourPage.showShopList(')[-1][:-1]
+      if len(body_real) > 10:
+        item_raw = json.loads(body_real)
+        item = {'com_id':com_id, 'id':com_id+'_'+date, 'price':item_raw['shopList'][0]['productPrice'], 'date':date, 'shop_name':item_raw['shopList'][0]['shopName']}
+        #save price
+        facade.save_pricesuning(item)
+
+    return requests

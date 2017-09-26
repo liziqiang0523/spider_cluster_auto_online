@@ -1,0 +1,47 @@
+# coding=utf-8
+#author:shiyuming
+'''
+  suning价格抓取
+'''
+
+import sys, traceback, logging,re, json, datetime
+from oreo.spiders.basesite import BasesiteSpider
+from basesiteonline import OnlineSpider
+from oreo.facade import facade
+from scrapy.selector import Selector
+
+class PriceGuomei(OnlineSpider):
+#class PriceGuomei(BasesiteSpider):
+  name = "priceguomei"
+  topic = 'priceguomei'
+  start_urls = [
+    #'http://product.dangdang.com/23678218.html',
+    #http://item.gome.com.cn/9133898693-1122910028.html
+    'http://g.gome.com.cn/ec/homeus/browse/store.jsp?callback=jQuery17109541023322381079_1446692564315&goodsNo=100380159&city=11011400&areaId=110114001&siteId_p=&skuType_p=ZSP&shelfCtgy3=AH01&zoneId=11010000&sid=1122910028&pid=9133898693&programId=111111111&threeD=n&_=1446692564325',
+    ]
+
+  #解析json
+  def parse(self, response):
+    requests = []
+    '''
+    if self.scheduler == None:
+      self.scheduler = RequestScheduler(topic = self.topic, no_proxy = self.no_proxy, max_request_num = self.max_request_num)
+    requests = self.scheduler.process(response = response)
+    if response.status != 200:
+      return requests
+    '''
+    pid = re.search(r'&pid=(\d+)', response.url).group(1)
+    sid = re.search(r'&sid=(\d+)', response.url).group(1)
+    com_id = pid + "-" + sid
+    cur_time = datetime.datetime.now()
+    date = '%04d%02d%02d' % (cur_time.year, cur_time.month, cur_time.day)
+    body_real = response.body_as_unicode().encode('utf-8')
+    price = re.search(r',"price":"([.0-9]+)",', body_real)
+    if price != None:
+      price = price.group(1)
+      item = {'com_id':com_id, 'id':com_id+'_'+date, 'price':price, 'date':date }
+      print item
+      #save price
+      facade.save_priceguomei(item)
+
+    return requests

@@ -1,0 +1,16 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.sundongliang_article_pcauto_3 import Parserarticle_pcauto_list
+
+class Luntan(BasesiteSpider):
+	name = 'sundongliang_article_pcauto_3'
+	start_urls = ['http://www.pcauto.com.cn/nation/gckx/']
+	parsers = [Parserarticle_pcauto_list(),]
+	xTargets = [ 
+		{"xpath":"//p[@class='tit blue']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//em[@id='JallpageBtm']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pcauto_page']//a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]

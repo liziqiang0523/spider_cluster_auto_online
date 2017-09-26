@@ -1,0 +1,42 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:liziqiang
+'''
+qcask 二手车问答爬虫
+'''
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.spiders.basesiteonline import OnlineSpider
+from oreo.parser.qcask import ParserQcaskList
+from oreo.parser.qcask import ParserQcaskQuestion
+from oreo.parser.qcask import ParserQcaskAnswer
+#from qcask_item_urls import qcask_item_url
+
+#class Qcask(OnlineSpider):
+class Qcask(BasesiteSpider):
+  #在线爬虫配置
+  parsers = [ParserQcaskList(), ParserQcaskQuestion(),ParserQcaskAnswer()]
+
+  name = 'qcask'
+  topic = 'qcask'
+  allowed_domain = ['www.qcask.com']
+  #start_urls = qcask_item_url
+  start_urls = [
+    'http://www.qcask.com/?q-181.html'
+    'http://www.qcask.com/?c-36.html',
+    'http://www.qcask.com/?c-36/all/32.html',
+    'http://www.qcask.com/?c-36/all/8.html',
+    'http://www.qcask.com/?c-36/all/18.html',
+    'http://www.qcask.com/?c-36/all/28.html',
+    'http://www.qcask.com/?c-36/all/28.html', 
+    ]
+
+  xTargets = [
+    #下一页--list页  list页面已经全部一次性获得了，一段时间内不会变化，若有需要将重新解析搞到所有的中间页
+    #{'xpath':'//span[contains(@class, "num")]/a[contains(@href, "list.html?cat=")]','allow':(r'list.html\?cat.*page.*'),'deny':(),'itemtype':'qcask_commodity_list'},
+    #商品页面
+    {'xpath':"//div[@class='clist']//a",'allow':(),'deny':(),'itemtype':'qcask_question'},
+  ]
+  xListLink = [
+    {'xpath':"//div[@class='scott']//a",'allow':(),'deny':(),'itemtype':'qcask_question_list'},
+  ]

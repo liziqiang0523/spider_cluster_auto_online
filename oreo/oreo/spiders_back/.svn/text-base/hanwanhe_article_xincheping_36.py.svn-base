@@ -1,0 +1,23 @@
+#!/usr/bin/python
+#coding=utf-8
+#author:auto_maker
+
+from oreo.spiders.basesite import BasesiteSpider
+from oreo.parser.hanwanhe_article_xincheping_36 import Parserarticle_xincheping_news_list47
+from oreo.parser.hanwanhe_article_xincheping_36 import Parserarticle_xincheping_video_list58
+from oreo.parser.hanwanhe_article_xincheping_36 import Parserarticle_xincheping_news_item59
+from oreo.parser.hanwanhe_article_xincheping_36 import Parserarticle_xincheping_video_item91
+from oreo.parser.hanwanhe_article_xincheping_36 import Parserarticle_xincheping_shoushicheping_list138
+from oreo.parser.hanwanhe_article_xincheping_36 import Parserarticle_xincheping_yuanchuangcheping_list141
+
+class Luntan(BasesiteSpider):
+	name = 'hanwanhe_article_xincheping_36'
+	start_urls = ['http://www.xincheping.com/video/type/1012.html']
+	parsers = [Parserarticle_xincheping_news_list47(),Parserarticle_xincheping_video_list58(),Parserarticle_xincheping_news_item59(),Parserarticle_xincheping_video_item91(),Parserarticle_xincheping_shoushicheping_list138(),Parserarticle_xincheping_yuanchuangcheping_list141(),]
+	xTargets = [ 
+		{"xpath":"//div[@id='main-con-left']//div[@class='newslist_gncontent']//h3/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='pager-inner fs15']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='main-con-left']/div[@class='v_blist']//div[@class='v_llbox fs12']//li/p[1]/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@class='cp_first']/div[@class='cp_fbox']/h2/a","allow":(),"deny":(),"itemtype":"auto_item"},
+		{"xpath":"//div[@id='main-con']//h3[@class='fc1 fs20']/a","allow":(),"deny":(),"itemtype":"auto_item"},
+	]
