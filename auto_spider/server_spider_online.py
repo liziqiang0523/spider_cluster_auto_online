@@ -24,7 +24,7 @@ sys.setdefaultencoding('utf8')
 
 class Process:
   def __init__(self):
-    self.con = mysqldb.connect(host = '172.16.98.12', port = 3306, user = 'xin', passwd = '48sdf37EB7', db = 'ab', charset='utf8')
+    self.con = mysqldb.connect(host = '', port = , user = '', passwd = '', db = 'ab', charset='utf8')
     self.cursor = self.con.cursor() 
 
   def __del__(self):
