@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#author:shiyuming
+#author:shiyuming,liziqiang
 '''
 图片现在基类
 '''
